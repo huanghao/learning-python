@@ -8,6 +8,7 @@ Content
   - History
   - Guido
   - Q&A
+    - cpython, pypy, stackless
   - Compare to other languages
   - Interactive interpreter
   - Run programs
@@ -72,75 +73,87 @@ Content
 8. Standard libs
   - Advanced data structures: collections, heapq
   - virtualenv, pyenv
-9. Unittest
+9. Auto-testing
+  - doctest
   - unittest
   - pytest & Nose
   - Mocking
   - Tox
-  - Selenium
-  - Coverage
+  - Selenium, WebDriver, PhantomJS
+  - Coverage, python-coverage, coversall.io
 10. Benchmarking
+  - Gocha
+  - hostspot
   - cProfile
   - timeit
   - pystones
 11. Engineering
-  - Development: Flake8(pep8,pyflakes,mcCabe), pylint, virtualevn, autoenv
+  - Development: ipython, Flake8(pep8,pyflakes,mcCabe), pylint, virtualenv(wrapper), autoenv, landscape.io
   - Document: docstring, pydoc, Sphinx, readthedocs
   - Auto testing
   - Source code maintaning: github
   - Code review: Gerrit, github(Pull Request)
   - Packaging: setuptools
   - Deployment: Ansible, SaltStack, Puppet, fabric
-  - Release: PyPi
+  - Release: PyPi, pip
+  - Monitoring: Psutil, Nagios, Ganglia
   - CI: Travis-CI, Jenkins/buildbot
   - Agile & DevOp
 12. Text processing
-  - String
-  - Unicode
-  - XML & JSON, lxml, xmltodict, json
+  - string types, std string lib
+  - Unicode, py3
   - re
-  - Templates, Jinja2, Marko
+  - XML & JSON & YAML, lxml, untangle, xmltodict, json, pyyaml
+  - PyQuery & BeautifulSoup
+  - Templates, Jinja2, Mako
   - Logging
-  - PyQuery & BeautifulSOAP
-  - Lex & Yacc, pylex
+  - Lex & Yacc, ply
+  - shlex
+  - safe evaluate, abstruct syntax tree(AST)
 13. Multi-processing & Multi-threading
   - threading
   - multiprocessing
   - subprocess
+  - python-daemon
+  - supervisor
+  - envoy
 14. Networking
+  - netaddr
   - socket
-  - requests & urllib2
+  - http: requests & requests-cache & urllib2 & pycurl
   - Twisted
   - gevent
+  - python-eventlet
   - tulip(asyncio)
   - Scrapy
 15. Databases
-  - SQLAlchemy, Django ORM
-  - Mongo
-  - Redis
+  - sqlite/MySQLdb/PostgreSQL, SQLAlchemy, Django ORM
+  - Mongo/Redis/CouchDB
   - Memcache
 16. Message Queue
-  - RabbitMQ
+  - RabbitMQ, pika, amqplib
   - ZMQ
   - Celery
 17. Web
-  - WSGI
-  - Flask
-  - Django
-  - Tornado
-  - paste
-  - bottle
+  - WSGI/paste
+  - Flask/Django/Tornado
+  - bottle/webpy/cherrypy
 18. Other applications
-  - C extensions
+  - C extensions, ctypes, cython, swig, pyrex
+  - i18n & l11n, babel, pytz, dateutil, lunar, datetime
   - Wxpython
-  - Numpy & Scipy & Matplotlib
+  - Numpy, Scipy, Matplotlib, sympy, networkX, panda
   - PyGame
   - Xapian
   - NLTK
   - PIL
   - scikit-learn
   - GAE
-19. Resources
+  - OpenStack
+  - Crypto, cryptography, pycrypto, pyOpenSSL, m2crypto, paramiko
+19. Py3
+  - six
+20. Resources
   - Docs
     - https://www.python.org/
     - https://docs.python.org/2/
