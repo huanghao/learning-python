@@ -71,8 +71,12 @@ Content
   - Built-in exceptions
   - traceback
 8. Standard libs
+  - sys
+  - os
+  - os.path
   - Advanced data structures: collections, heapq
-  - virtualenv, pyenv
+  - virtualenv, venv
+  - argparse
 9. Auto-testing
   - doctest
   - unittest
