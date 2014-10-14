@@ -140,7 +140,7 @@ Content
   - PIL
   - scikit-learn
   - GAE
-19. References
+19. Resources
   - Docs
     - https://www.python.org/
     - https://docs.python.org/2/
