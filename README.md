@@ -49,7 +49,6 @@ Content
   - threading
   - multiprocessing
   - subprocess
-  - Celery
 14. Networks
   - socket
   - requests & urllib2
@@ -59,10 +58,14 @@ Content
   - Mongo
   - Redis
   - Memcache
-16. Web
+16. Message Queue
+  - Redis
+  - RabbitMQ
+  - Celery
+17. Web
   - Flask
   - Django
-17. Other applications
+18. Other applications
   - C extensions
   - Sphinx
   - Wxpython
@@ -72,7 +75,7 @@ Content
   - PIL
   - scikit-learn
   - GAE
-18. References
+19. References
 
 Docs
 - https://www.python.org/
