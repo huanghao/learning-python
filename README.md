@@ -1,6 +1,78 @@
 learning-python
 ===============
 
+Content
+-------
+
+1. Introduction
+  - History
+  - Guido
+  - Py3
+  - Popular & Everywhere
+2. Core Types
+  - Data structures
+  - Files
+3. Syntax
+4. Functions
+5. Modules
+6. Classes
+7. Exceptions
+8. Advanced Functions
+  - Decorators
+  - Generators
+  - Metaclasses
+9. Standard libs
+10. Unittest
+  - unittest
+  - pytest & nose
+  - tox
+  - selenium
+11. Engineering
+  - Development: pep8, lint
+  - Auto testing
+  - Source code maintaning: github
+  - Code review: Gerrit, github(Pull Request)
+  - Packaging: setuptools
+  - Deployment: Ansible
+  - Release: PyPi
+  - CI: Jenkins(buildbot)
+  - Agile & DevOp
+12. Text processing
+  - String
+  - Unicode
+  - XML & JSON
+  - re
+  - Templates
+  - Lex & Yacc
+  - Logging
+13. Multi-processing & Multi-threading
+  - threading
+  - multiprocessing
+  - subprocess
+  - Celery
+14. Networks
+  - socket
+  - requests & urllib2
+  - Twisted
+15. Databases
+  - Relationship DB
+  - Mongo
+  - Redis
+  - Memcache
+16. Web
+  - Flask
+  - Django
+17. Other applications
+  - C extensions
+  - Sphinx
+  - Wxpython
+  - Numpy & Scipy & Matplotlib
+  - PyGame
+  - NLTK
+  - PIL
+  - scikit-learn
+  - GAE
+18. References
 
 Docs
 - https://www.python.org/
@@ -28,6 +100,7 @@ Groups & BBS
 Books
 - Learning Python, http://book.douban.com/subject/22139956/
 - Text Processing in Python, http://book.douban.com/subject/1748395/
+- The Python Standard Library by Example, http://book.douban.com/subject/6540551/
 - Expert Python Programming, http://book.douban.com/subject/4212921/
 - Python源码剖析, http://book.douban.com/subject/3117898/
 
