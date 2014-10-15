@@ -58,8 +58,9 @@ Try interpreter
 $ python hello.py
 
 .pyc
-  compiled .py
-  After 3.2: __pycache__
+
+- compiled .py
+- After 3.2: __pycache__
 
 Python's Arsenal
 ----------------
