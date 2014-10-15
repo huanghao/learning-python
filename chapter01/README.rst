@@ -49,6 +49,8 @@ Run programs
 
 Try interpreter
 
+::
+
   >>> 1 + 1
   2
   >>> ^D or exit() or quit()
