@@ -5,15 +5,12 @@ Q&A
 ---
 
 What is Python ?
-
   A interpreted, interactive, OO programming language.
 
 What is Python good for ?
-
   high-level, a large standard library, a wide variety of 3rd-party packages
 
 Why is it called Python ?
-
   "Monty Python's Flying Circus"
   http://www.imdb.com/title/tt0063929/
 
@@ -22,7 +19,6 @@ Why do people use Python ?
 What can I do with Python ?
 
 Which Python should I choose ?
-
 - version: 2 or 3
 - implementation: cpython, pypy, Jython, IronPython, stackless
 
@@ -53,15 +49,15 @@ Run programs
 
 Try interpreter
 
->>> 1 + 1
-2
->>> ^D or exit() or quit()
+  >>> 1 + 1
+  2
+  >>> ^D or exit() or quit()
 
 $ python hello.py
 
-.pyc (compiled .py)
-
-After 3.2: __pycache__
+.pyc
+  compiled .py
+  After 3.2: __pycache__
 
 Python's Arsenal
 ----------------
@@ -69,6 +65,7 @@ Python's Arsenal
 numeric, bool, sequence, dict, text, set, binary sequence, exception, object
 
 ~250 libs: https://docs.python.org/3/library/index.html
+
 1. Text processing: string, re, difflib, textwrap, unicodedata, stringprep, readline, rlcompleter
 2. Binary data services: struct, codecs
 3. Dat types: datetime, calendar, collections, collections.abc, heapq, bisect, array, weakref, types, copy, pprint, reprlib, enum
