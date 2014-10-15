@@ -11,7 +11,7 @@ What is Python good for ?
   high-level, a large standard library, a wide variety of 3rd-party packages
 
 Why is it called Python ?
-  `"Monty Python's Flying Circus"<http://www.imdb.com/title/tt0063929/>`_
+  `Monty Python's Flying Circus <http://www.imdb.com/title/tt0063929/>`_
 
 Why do people use Python ?
 
@@ -35,13 +35,13 @@ Features
 Design and History
 ------------------
 
-- `History<https://docs.python.org/3/license.html>`_
+- `History <https://docs.python.org/3/license.html>`_
 - indentation
 - explicit *self*
 - no *case* statement
 - *lambda* only allows expressions
-- The Zen of Python(`PEP 20<http://legacy.python.org/dev/peps/pep-0020/>`_)
-- `Guido<http://en.wikipedia.org/wiki/Guido_van_Rossum>`_
+- The Zen of Python(`PEP 20 <http://legacy.python.org/dev/peps/pep-0020/>`_)
+- `Guido <http://en.wikipedia.org/wiki/Guido_van_Rossum>`_
 
 Run programs
 ------------
@@ -66,7 +66,7 @@ Python's Arsenal
 
 numeric, bool, sequence, dict, text, set, binary sequence, exception, object
 
-~250 libs: https://docs.python.org/3/library/index.html
+~250 `libs <https://docs.python.org/3/library/index.html>`_:
 
 1. Text processing: string, re, difflib, textwrap, unicodedata, stringprep, readline, rlcompleter
 2. Binary data services: struct, codecs
