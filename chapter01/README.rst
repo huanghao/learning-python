@@ -19,7 +19,7 @@ What can I do with Python ?
 
 Which Python should I choose ?
 - version: 2 or 3
-- implementation: cpython, pypy, Jython, IronPython, stackless
+- `Alternate Implementations`_: cpython, pypy, Jython, IronPython, stackless
 
 Features
 --------
@@ -106,3 +106,5 @@ Where you can find those standard libs ?
 
   /usr/lib/python2.7
   /usr/lib/python3.4
+
+.. _Alternate Implementations: https://docs.python.org/3/reference/introduction.html#alternate-implementations
