@@ -1,6 +1,12 @@
 learning-python
 ===============
 
+See https://readthedocs.org/projects/learning-python/
+
+Or run this command to get local document.
+
+  $ make html
+
 Content
 -------
 
