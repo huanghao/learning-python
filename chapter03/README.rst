@@ -397,7 +397,20 @@ String conversion::
 
   %s, %d
 
-Unicode
+`Text vs. data instead of unicode vs. 8-bit`_
+
+In 2.x::
+
+  >>> type('hello'), repr('hello')
+  (<type 'str'>, "'hello'")
+  >>> type(u'你好'), repr(u'你好')
+  (<type 'unicode'>, "u'\\u4f60\\u597d'")
+  >>> issubclass(str, basestring)
+  True
+  >>> issubclass(unicode, basestring)
+  True
+
+
 
 Lists, Dictionaries, Tuples and Sets
 ------------------------------------
@@ -412,6 +425,10 @@ Sets
 
 Slices
 
+Immutables (numbers, strings, tuples, frozensets)
+
+Mutables (lists, dicts, sets, bytearray)
+
 Files
 -----
 
@@ -425,3 +442,5 @@ Files
 .. _Changed syntax: https://docs.python.org/3/whatsnew/3.0.html#changed-syntax
 .. _String methods: https://docs.python.org/3/library/stdtypes.html#string-methods
 .. _printf-style String Formatting: https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting
+.. _Text vs. data instead of unicode vs. 8-bit: https://docs.python.org/3/whatsnew/3.0.html#text-vs-data-instead-of-unicode-vs-8-bit
+.. _Unicode HOWTO: https://docs.python.org/3/howto/unicode.html#unicode-howto
