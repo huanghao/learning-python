@@ -9,8 +9,13 @@ Welcome to learning-python's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+  :maxdepth: 2
+  :numbered:
 
+  chapter01/README.rst
+  chapter03/README.rst
+  chapter04/README.rst
+  Appendix/resources.rst
 
 
 Indices and tables
