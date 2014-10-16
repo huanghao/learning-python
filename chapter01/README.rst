@@ -4,21 +4,27 @@ Introduction
 Q&A
 ---
 
+What's the frist programming language you learned ?
+
+How many programming languages you are using for daily work ?
+
+What's your favorite programming language ?
+
 What is Python ?
   A interpreted, interactive, OO programming language.
 
-What is Python good for ?
-  high-level, a large standard library, a wide variety of 3rd-party packages
+Why do people use Python ?
 
 Why is it called Python ?
   `Monty Python's Flying Circus <http://www.imdb.com/title/tt0063929/>`_
 
-Why do people use Python ?
+What is Python good for ?
+  high-level, a large standard library, a wide variety of 3rd-party packages
 
 What can I do with Python ?
 
 Which Python should I choose ?
-- version: 2 or 3
+- Version: 2.7 or 3.4
 - `Alternate Implementations`_: cpython, pypy, Jython, IronPython, stackless
 
 Features
