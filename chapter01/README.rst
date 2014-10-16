@@ -99,3 +99,10 @@ numeric, bool, sequence, dict, text, set, binary sequence, exception, object
 29. MS: msilib, msvcrt, winreg, winsound
 30. Unix: posix, pwd, spwd, grp, crypt, termios, tty, pty, fcntl, pipes, resource, nis, syslog
 31. Superseded: optparse, imp
+
+Where you can find those standard libs ?
+
+  sys.path
+
+  /usr/lib/python2.7
+  /usr/lib/python3.4
