@@ -2,20 +2,20 @@ Core Types
 ==========
 
 =============  ============================================
-Built-in type  Example                                     
+Built-in type  Example
 =============  ============================================
-None           None                                        
-Booleans       True,False                                  
-Numbers        123,3.14,3+4j,0xef,Decimal,Fraction         
-Strings        'spam',"Bob's",b'a\x01c',u'sp\xc4m'         
-Lists          [1,[2,'Three'],4.5], list(range(10))        
-Tuples         (1,'spam',4,'U'),tuple('spam'),namedtuple   
+None           None
+Booleans       True,False
+Numbers        123,3.14,3+4j,0xef,Decimal,Fraction
+Strings        'spam',"Bob's",b'a\x01c',u'sp\xc4m'
+Lists          [1,[2,'Three'],4.5], list(range(10))
+Tuples         (1,'spam',4,'U'),tuple('spam'),namedtuple
 Dicts          {'food':'spam','taste':'yum'},dict(hours=10)
-Sets           {1,'a','bc'},set('abc')                     
-Files          open('eggs.txt')                            
-functions      def,lambda                                  
-modules        import,`__module__`                         
-classes        object,types,metaclasses                    
+Sets           {1,'a','bc'},set('abc')
+Files          open('eggs.txt')
+functions      def,lambda
+modules        import,`__module__`
+classes        object,types,metaclasses
 =============  ============================================
 
 Numeric types
@@ -199,28 +199,28 @@ Implicit concatenation::
 
 Escape characters
 
-+------------+------------------------------------------------+
-| Escape     | Meaning                                        |
-+============+================================================+
-| \newline   | ignored(continuation line)                     |
-| \\         | Backslash (stores one \)                       |
-| \'         | Single quote(stores ')                         |
-| \"         | Double quote(stores ")                         |
-| \a         | Bell                                           |
-| \b         | Backspace                                      |
-| \f         | Formfeed                                       |
-| \n         | Newline(linefeed)                              |
-| \r         | Carriage return                                |
-| \t         | Horizontal tab                                 |
-| \v         | Vertical tab                                   |
-| \xhh       | Character with hex value hh(exactly 2 digits)  |
-| \ooo       | Character with octal value ooo(up to 3 digits) |
-| \0         | Null: binary 0 character(doesn't end string)   |
-| \N{id}     | Unicode database ID                            |
-| \uhhhh     | Unicode character with 16|bit hex value        |
-| \Uhhhhhhhh | Unicode character with 32|bit hex value        |
-| \other     | Not an escape(keeps both \ and other)          |
-+------------+------------------------------------------------+
+============ ==============================================
+Escape       Meaning
+============ ==============================================
+`\newline`   Ignored(continuation line)
+`\\`         Backslash (stores one `\`)
+`\'`         Single quote(stores ')
+`\"`         Double quote(stores ")
+`\a`         Bell
+`\b`         Backspace
+`\f`         Formfeed
+`\n`         Newline(linefeed)
+`\r`         Carriage return
+`\t`         Horizontal tab
+`\v`         Vertical tab
+`\xhh`       Character with hex value hh(exactly 2 digits)
+`\ooo`       Character with octal value ooo(up to 3 digits)
+`\0`         Null: binary 0 character(doesn't end string)
+`\N{id}`     Unicode database ID
+`\uhhhh`     Unicode character with 16bit hex value
+`\Uhhhhhhhh` Unicode character with 32bit hex value
+`\other`     Not an escape(keeps both `\` and other)
+============ ==============================================
 
 Raw strings suppress escapes::
 
