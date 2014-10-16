@@ -34,7 +34,7 @@ A complete inventory of Python's numeric toolbox includes:
   hex, otctal, and binary formats
 - Third-party extensions: vectors, libraries, visulization, plotting, etc.
 
-Literals
+Literals::
 
   1234, -24, 0, 9999999999999999
   1.23, 1., 3.14e-10, 4E210, 4.0e+210
@@ -44,7 +44,8 @@ Literals
   Decimal('1.0'), Decimal('-Inf'), Fraction(1, 3)
   bool(x), True, False
 
-::
+Example::
+
   >>> 3 ** 2 / (4 + 1)
   1
   >>> 3 ^ 9
@@ -66,8 +67,7 @@ Literals
   >>> ' '.join([bin(13),  hex(13), oct(13)])
   '0b1101 0xd 015'
 
-  # py2
-  >>> type(3)
+  >>> type(3)        # 2.x
   <type 'int'>
   >>> type(2**100)
   <type 'long'>
@@ -142,14 +142,11 @@ Literals
   >>> variance(data)
   1.3720238095238095
 
-  # py2
-  >>> True = False
+  >>> True = False    # 2.x
   >>> True == False
   True
 
-`Operations <Precedence_>`_
-
-::
+`Operations <Precedence_>`_::
 
   +, -, *, /, //, >>, <<, **, &, |, ^, %, ~
   <, >, !=, ==, <=, >=, in, not in, not, and, or
@@ -164,6 +161,7 @@ Built-in modules
 
  
 New in 2.6
+
 - `PEP 3141`_: A Type Hierarchy for Numbers
 
 New in 3.0
@@ -173,9 +171,10 @@ New in 3.0
 - The sys.maxint constant was removed, since there is no longer a limit to the value of integers. However, sys.maxsize can be used as an integer larger than any practical list or string index. It conforms to the implementation’s “natural” integer size and is typically the same as sys.maxint in previous releases on the same platform (assuming the same build options).
 - The repr() of a long integer doesn’t include the trailing L anymore, so code that unconditionally strips that character will chop off the last digit instead. (Use str() instead.)
 - Octal literals are no longer of the form 0720; use 0o720 instead.
-PEP 3141 -- A Type Hierarchy for Numbers
+- `PEP 3141`_ -- A Type Hierarchy for Numbers
 - `Ordering Comparisions`_: The ordering comparison operators (<, <=, >=, >) raise a TypeError exception when the operands don’t have a meaningful natural ordering. Thus, expressions like 1 < '', 0 > None or len <= len are no longer valid, and e.g. None < None raises TypeError instead of returning False. A corollary is that sorting a heterogeneous list no longer makes sense – all the elements must be comparable to each other. Note that this does not apply to the == and != operators: objects of different incomparable types always compare unequal to each other.
 - `Changed Syntax`_: True, False, and None are reserved words. (2.6 partially enforced the restrictions on None already.)
+
 
 Strings
 -------
@@ -190,8 +189,13 @@ Literals
 - Bytes literals in 3.x and 2.6+: b'sp\x01am'
 - Unicode literals in 2.x and 3.3+: u'eggs\u0020spam'
 
-* Single- and double-quoted strings are the same
-* Implicit concatenation
+Single- and double-quoted strings are the same
+
+Implicit concatenation::
+
+  >>> title = "Meaning " 'of' " Life"
+  >>> title
+  'Meaning of Life'
 
 Escape characters
 
@@ -348,15 +352,15 @@ String conversion::
 - str.casefold
 - str.center
 - str.count
-- *str.encode(encoding="utf-8",-errors="strict")*
-- *str.endswith(suffix[,-start[,-end]])*
+- **str.encode(encoding="utf-8",-errors="strict")**
+- **str.endswith(suffix[,-start[,-end]])**
 - str.expendtabs
-- *str.find(sub[,-start[,-end]])*
-- *str.format(*args, **kwargs)*
+- **str.find(sub[,-start[,-end]])**
+- **str.format(*args, **kwargs)**
 - str.format_map
-- *str.index(sub[, start[, end]])*
+- **str.index(sub[, start[, end]])**
 - str.isalnum
-- *str.isalpha()*
+- **str.isalpha()**
 - str.isdecimal
 - str.isdigit
 - str.isidentifier
@@ -366,28 +370,28 @@ String conversion::
 - str.isspace
 - str.istitle
 - str.isupper
-- *str.join(iterable)*
+- **str.join(iterable)**
 - str.ljust
-- *str.lower()*
+- **str.lower()**
 - str.lstrip
 - str.maketrans
 - str.partition
-*str.replace(old, new[, count])*
-str.rfind
-str.rindex
-str.rjust
-str.rpartition
-str.rsplit
-str.rstrip
-*str.split(sep=None, maxsplit=-1)*
-*str.splitlines([keepends])*
-*str.startswith(prefix[, start[, end]])*
-*str.strip([chars])*
-str.swapcase
-str.title
-str.translate
-*str.upper()*
-str.zfill
+- **str.replace(old, new[, count])**
+- str.rfind
+- str.rindex
+- str.rjust
+- str.rpartition
+- str.rsplit
+- str.rstrip
+- **str.split(sep=None, maxsplit=-1)**
+- **str.splitlines([keepends])**
+- **str.startswith(prefix[, start[, end]])**
+- **str.strip([chars])**
+- str.swapcase
+- str.title
+- str.translate
+- **str.upper()**
+- str.zfill
 
 `printf-style String Formatting`_
 
