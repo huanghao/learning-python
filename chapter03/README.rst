@@ -57,7 +57,16 @@ Literals
   15
   >>> (2 + 1j) * -1j
   (1-2j)
+  >>> bool(3) and True or False
+  True
+  >>> ({1, 2, 3} & { 3, 5, 7} | {3, 4}) - {Decimal('3')}
+  set([4])
+  >>> Decimal('3') == 3
+  True
+  >>> ' '.join([bin(13),  hex(13), oct(13)])
+  '0b1101 0xd 015'
 
+  # py2
   >>> type(3)
   <type 'int'>
   >>> type(2**100)
@@ -133,6 +142,11 @@ Literals
   >>> variance(data)
   1.3720238095238095
 
+  # py2
+  >>> True = False
+  >>> True == False
+  True
+
 `Operations <Precedence_>`_
 
 ::
@@ -161,6 +175,241 @@ New in 3.0
 - Octal literals are no longer of the form 0720; use 0o720 instead.
 PEP 3141 -- A Type Hierarchy for Numbers
 - `Ordering Comparisions`_: The ordering comparison operators (<, <=, >=, >) raise a TypeError exception when the operands don’t have a meaningful natural ordering. Thus, expressions like 1 < '', 0 > None or len <= len are no longer valid, and e.g. None < None raises TypeError instead of returning False. A corollary is that sorting a heterogeneous list no longer makes sense – all the elements must be comparable to each other. Note that this does not apply to the == and != operators: objects of different incomparable types always compare unequal to each other.
+- `Changed Syntax`_: True, False, and None are reserved words. (2.6 partially enforced the restrictions on None already.)
+
+Strings
+-------
+
+Literals
+
+- Single quotes: 'spa"m'
+- Double quotes: "spa'm"
+- Triple quotes: '''... spam ...''', """... spam ...""""
+- Escape sequences: "s\tp\na\0m"
+- Raw strings: r"C:\new\test.spm"
+- Bytes literals in 3.x and 2.6+: b'sp\x01am'
+- Unicode literals in 2.x and 3.3+: u'eggs\u0020spam'
+
+* Single- and double-quoted strings are the same
+* Implicit concatenation
+
+Escape characters
+
++------------+------------------------------------------------+
+| Escape     | Meaning                                        |
++============+================================================+
+| \newline   | ignored(continuation line)                     |
+| \\         | Backslash (stores one \)                       |
+| \'         | Single quote(stores ')                         |
+| \"         | Double quote(stores ")                         |
+| \a         | Bell                                           |
+| \b         | Backspace                                      |
+| \f         | Formfeed                                       |
+| \n         | Newline(linefeed)                              |
+| \r         | Carriage return                                |
+| \t         | Horizontal tab                                 |
+| \v         | Vertical tab                                   |
+| \xhh       | Character with hex value hh(exactly 2 digits)  |
+| \ooo       | Character with octal value ooo(up to 3 digits) |
+| \0         | Null: binary 0 character(doesn't end string)   |
+| \N{id}     | Unicode database ID                            |
+| \uhhhh     | Unicode character with 16|bit hex value        |
+| \Uhhhhhhhh | Unicode character with 32|bit hex value        |
+| \other     | Not an escape(keeps both \ and other)          |
++------------+------------------------------------------------+
+
+Raw strings suppress escapes::
+
+  >>> path = r'C:\new\text.dat'
+  >>> path              # Show as Python code
+  'C:\\new\\text.dat'
+  >>> print(path)       # User-friendly format
+  C:\new\text.dat
+  >>> len(path)         # String length
+  15
+
+Triple quotes code multiline block strings::
+
+  >>> mantra = """Always look
+  ...   on the bright
+  ... side of life."""
+  >>>
+  >>> mantra
+  'Always look\n on the bright\nside of life.'
+  >>> print(mantra)
+  Always look
+    on the bright
+  side of life.
+
+Basic operations::
+
+  >>> len('abc')
+  3
+  >>> 'abc' + 'def'
+  'abcdef'
+  >>> 'Ni!' * 4
+  'Ni!Ni!Ni!Ni!'
+
+  >>> myjob = "hacker"
+  >>> for c in myjob: print(c, end=' ')
+  ...
+  h a c k e r
+  >>> "k" in myjob
+  True
+  >>> "z" in myjob
+  False
+  >>> 'spam' in 'abcspamdef'
+  True
+
+Indexing and slicing::
+
+  >>> S = 'spam'
+  >>> S[0], S[−2]
+  ('s', 'a')
+  >>> S[1:3], S[1:], S[:−1]
+  ('pa', 'pam', 'spa')
+
+  >>> S = 'abcdefghijklmnop'
+  >>> S[1:10:2]
+  'bdfhj'
+  >>> S[::2]
+  'acegikmo'
+  >>> S = 'hello'
+  >>> S[::−1]            # Reversing items
+  'olleh'
+  >>> S = 'abcedfg'
+  >>> S[5:1:−1]
+  'fdec'
+
+  >>> 'spam'[1:3]
+  'pa'
+  >>> 'spam'[slice(1, 3)]
+  'pa'
+  >>> 'spam'[::-1]
+  'maps'
+  >>> 'spam'[slice(None, None, −1)]
+  'maps'
+
+String conversion::
+
+  >>> int("42"), str(42)
+  (42, '42')
+  >>> repr(42)
+  '42'
+  >>> str('spam'), repr('spam')
+  ('spam', "'spam'")
+
+  >>> str(3.1415), float("1.5")
+  ('3.1415', 1.5)
+  >>> text = "1.234E-10"
+  >>> float(text)
+  1.234e-10
+
+  >>> ord('s')
+  115
+  >>> chr(115)
+  's'
+
+*Changing* string::
+
+  # Immutable objects
+  >>> S = 'spam'
+  >>> S[0] = 'x'       # Raises an error!
+  TypeError: 'str' object does not support item assignment
+
+  >>> S = S + 'SPAM!'  # To change a string, make a new one
+  >>> S
+  'spamSPAM!'
+  >>> S = S[:4] + 'Burger' + S[−1]
+  >>> S
+  'spamBurger!'
+
+  >>> S = 'splot'
+  >>> id(S)
+  18598192
+  >>> S = S.replace('pl', 'pamal')
+  >>> id(S)
+  18598096
+  >>> S
+  'spamalot'
+  >>> id('spam')
+  18597136
+  >>> id('spamalot')
+  18597760
+
+  >>> 'That is %d %s bird!' % (1, 'dead')
+  That is 1 dead bird!
+  >>> 'That is {0} {1} bird!'.format(1, 'dead')
+  'That is 1 dead bird!'
+
+`String methods`_ in 3.4
+
+- str.capitalize
+- str.casefold
+- str.center
+- str.count
+- *str.encode(encoding="utf-8",-errors="strict")*
+- *str.endswith(suffix[,-start[,-end]])*
+- str.expendtabs
+- *str.find(sub[,-start[,-end]])*
+- *str.format(*args, **kwargs)*
+- str.format_map
+- *str.index(sub[, start[, end]])*
+- str.isalnum
+- *str.isalpha()*
+- str.isdecimal
+- str.isdigit
+- str.isidentifier
+- str.islower
+- str.isnumeric
+- str.isprintable
+- str.isspace
+- str.istitle
+- str.isupper
+- *str.join(iterable)*
+- str.ljust
+- *str.lower()*
+- str.lstrip
+- str.maketrans
+- str.partition
+*str.replace(old, new[, count])*
+str.rfind
+str.rindex
+str.rjust
+str.rpartition
+str.rsplit
+str.rstrip
+*str.split(sep=None, maxsplit=-1)*
+*str.splitlines([keepends])*
+*str.startswith(prefix[, start[, end]])*
+*str.strip([chars])*
+str.swapcase
+str.title
+str.translate
+*str.upper()*
+str.zfill
+
+`printf-style String Formatting`_
+
+  %s, %d
+
+Unicode
+
+Lists, Dictionaries, Tuples and Sets
+------------------------------------
+
+Lists
+
+Dicts
+
+Tuples
+
+Sets
+
+Slices
+
+Files
+-----
 
 
 .. _PEP 0237: http://legacy.python.org/dev/peps/pep-0237/
@@ -169,4 +418,6 @@ PEP 3141 -- A Type Hierarchy for Numbers
 .. _Operator precedence: https://docs.python.org/3.4/reference/expressions.html#operator-precedence
 .. _Built-in functions: https://docs.python.org/3.4/library/functions.html#built-in-functions
 .. _Ordering Comparisions: https://docs.python.org/3/whatsnew/3.0.html#ordering-comparisons
-
+.. _Changed syntax: https://docs.python.org/3/whatsnew/3.0.html#changed-syntax
+.. _String methods: https://docs.python.org/3/library/stdtypes.html#string-methods
+.. _printf-style String Formatting: https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting
