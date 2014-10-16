@@ -1,22 +1,22 @@
 Core Types
 ==========
 
-+---------------+----------------------------------------------+
-| Built-in type | Example                                      |
-+===============+==============================================+
-| None          | None                                         |
-| Booleans      | True,False                                   |
-| Numbers       | 123,3.14,3+4j,0xef,Decimal,Fraction          |
-| Strings       | 'spam',"Bob's",b'a\x01c',u'sp\xc4m'          |
-| Lists         | [1,[2,'Three'],4.5], list(range(10))         |
-| Tuples        | (1,'spam',4,'U'),tuple('spam'),namedtuple    |
-| Dicts         | {'food':'spam','taste':'yum'},dict(hours=10) |
-| Sets          | {1,'a','bc'},set('abc')                      |
-| Files         | open('eggs.txt')                             |
-| functions     | def,lambda                                   |
-| modules       | import,`__module__`                          |
-| classes       | object,types,metaclasses                     |
-+---------------+----------------------------------------------+
+=============  ============================================
+Built-in type  Example                                     
+=============  ============================================
+None           None                                        
+Booleans       True,False                                  
+Numbers        123,3.14,3+4j,0xef,Decimal,Fraction         
+Strings        'spam',"Bob's",b'a\x01c',u'sp\xc4m'         
+Lists          [1,[2,'Three'],4.5], list(range(10))        
+Tuples         (1,'spam',4,'U'),tuple('spam'),namedtuple   
+Dicts          {'food':'spam','taste':'yum'},dict(hours=10)
+Sets           {1,'a','bc'},set('abc')                     
+Files          open('eggs.txt')                            
+functions      def,lambda                                  
+modules        import,`__module__`                         
+classes        object,types,metaclasses                    
+=============  ============================================
 
 Numeric types
 -------------
