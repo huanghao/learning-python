@@ -26,7 +26,9 @@ Comments
 
 Encoding declarations
   If a comment in the first or second line of the Python script matches the regular
-  expression **coding[=:]\s*([-\w.]+)**. The recommended forms of this expression are::
+  expression **coding[=:]\s*([-\w.]+)**.
+
+The recommended forms of this expression are::
 
   # -*- coding: <encoding-name> -*-
   which is recognized also by GNU Emacs, and
@@ -34,22 +36,24 @@ Encoding declarations
   # vim:fileencoding=<encoding-name>
   which is recognized by Bram Moolenaar’s VIM.
 
-  If no encoding declaration is found, the default encoding is UTF-8.
+If no encoding declaration is found, the default encoding is UTF-8.
 
 Explicit line joining
   Two or more physical lines may be joined into logical lines using backslash characters
 
 ::
+
   if 1900 < year < 2100 and 1 <= month <= 12 \
-   and 1 <= day <= 31 and 0 <= hour < 24 \
-   and 0 <= minute < 60 and 0 <= second < 60:   # Looks like a valid date
-        return 1
+    and 1 <= day <= 31 and 0 <= hour < 24 \
+    and 0 <= minute < 60 and 0 <= second < 60:   # Looks like a valid date
+      return 1
 
 Implicit line joining
   Expressions in parentheses, square brackets or curly braces can be split over more
   than one physical line without using backslashes.
 
 ::
+
   month_names = ['Januari', 'Februari', 'Maart',      # These are the
                  'April',   'Mei',      'Juni',       # Dutch names
                  'Juli',    'Augustus', 'September',  # for the months
@@ -69,6 +73,7 @@ Identifiers
 Keywords
 
 ::
+
   False      class      finally    is         return
   None       continue   for        lambda     try
   True       def        from       nonlocal   while
@@ -102,11 +107,13 @@ Literals
   `imaginary <imaginary_literal_>`_)
 
 Operators::
+
   +       -       *       **      /       //      %
   <<      >>      &       |       ^       ~
   <       >       <=      >=      ==      !=
 
 Delimiters::
+
   (       )       [       ]       {       }
   ,       :       .       ;       @       =       ->
   +=      -=      *=      /=      //=     %=
@@ -143,11 +150,144 @@ Yield expressions::
 Statements
 ----------
 
-=========
-Statement
 Assignment
-Calls and other expressions
-print calls
+
+  =, +=, \*=
+
+Pass
+  when it is excuted, nothing happens. It's useful as a placeholder
+
+If
+
+::
+
+  if x > 0
+    print 'Positive'
+  elif x < 0:
+    print 'Nagtive'
+  else:
+    print 'Zero'
+
+Loop: for, while, break, continue
+
+::
+
+  x = 7
+  while x > 0:
+    print x * 2
+    x -= 1
+  else:
+    print 'End'
+
+  for i in range(10):
+    print i
+    i = 5
+
+Notes: *break* terminates the nearest enclosing loop, skipping the optional *else* clause if the loop has one.
+
+Try/Raise
+
+::
+
+  def foo():
+    if random.random() < .1:
+      raise SomeException("BOOM!")
+
+  try:
+    foo()
+  except SomeException as err1:
+    print err1
+  except AnotherException as err2:
+    raise
+  except (AException, BException) as err3:
+    pass
+  else:
+    print 'No exception occurs'
+  finally:
+    print "This block is always evaluated"
+
+With
+
+::
+
+  # this file will be closed automatically
+  # even exception is raised within this block
+
+  with open('somefile', 'w') as writer:
+    write_content_to(writer)
+
+Context Manager
+  __enter__()
+  __exit__()
+
+::
+
+  # py3.1, 2.7
+  with A() as a, B() as b:
+    do some thing
+  =>
+  # py2.6
+  with A() as a:
+    with B() as b:
+      do some thing
+
+Yield
+
+::
+
+  def start_from(n):
+    while True:
+      yield n
+      n += 1
+
+Return
+
+::
+
+  def foo(n):
+    return 'Even' if n % 2 == 0 else 'Odd'
+
+  # If no explicit return value is given,
+  # return value is None
+
+  def foo(n):
+    pass
+
+Import
+
+::
+
+  import sys
+  import os.path
+
+  from random import *
+  from os.path import (join, exist)
+  from math import pi
+
+  import numpy as np
+  from pyquery import PyQuery as pq
+
+Future #TODO
+PEP 236 - Back to the __future__
+http://legacy.python.org/dev/peps/pep-0236/
+
+Global, local and nonlocal
+PEP 3104 - Access to Names in Outer Scopes
+http://legacy.python.org/dev/peps/pep-3104/
+
+Assert
+
+Del
+
+`Print <https://docs.python.org/2/reference/simple_stmts.html#the-print-statement>`_
+  `Print is a Function <https://docs.python.org/3/whatsnew/3.0.html#print-is-a-function>`_
+  `PEP 3105 <http://legacy.python.org/dev/peps/pep-3105/>`_ -- Make print a function
+
+`Exec <https://docs.python.org/2/reference/simple_stmts.html#the-exec-statement>`_
+  `Removed keyword <https://docs.python.org/3/whatsnew/3.0.html#removed-syntax>`_:
+  exec() is no longer a keyword; it remains as a function.  (Fortunately the function
+  syntax was also accepted in 2.x.) Also note that exec() no longer takes a stream
+  argument; instead of exec(f) you can use exec(f.read()).
 
 .. _The Python Language Reference: https://docs.python.org/3/reference/index.html
 .. _Special method names: https://docs.python.org/3/reference/datamodel.html#specialnames
