@@ -12,13 +12,6 @@ Or run this command to get local document.
 Content
 -------
 
-1. Introduction
-  - History
-  - Guido
-  - Q&A
-  - Compare to other languages
-  - Run programs
-  - Std libs
 2. Demos
   - C extensions, ctypes, cython, swig, sip, pyrex
   - i18n & l11n, babel, pytz, dateutil, lunar, datetime
@@ -48,15 +41,6 @@ Content
   - PySolFC
   - Django, TruboGears, web2py, Pylons, Zope, WebWare
   - IronPython, pyjs(a.k.a pyjamas)
-2. Core Types
-  - Numbers
-  - Strings
-  - List/Dict/Tuple/Set
-  - Dynamic typing
-  - Muttable and immutable types
-  - Files
-  - Classes: object
-  - Exceptions
 3. Syntax
   - keyworks
   - pass

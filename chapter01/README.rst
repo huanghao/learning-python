@@ -60,12 +60,27 @@ Try interpreter
   2
   >>> ^D or exit() or quit()
 
+  >>> dir()
+
+  >>> l = [1, 2, 3]
+  >>> dir(l)
+
+  >>> help(l)
+  >>> help(l.extend)
+
 $ python hello.py
 
 .pyc
 
 - compiled .py
 - After 3.2: *__pycache__*
+
+Built-in document
+
+  $ pydoc with
+
+  $ pydoc -p 8080       # then open http://localhost:8080
+
 
 Python's Arsenal
 ----------------
