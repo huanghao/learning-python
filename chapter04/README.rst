@@ -402,20 +402,26 @@ Del
 `Print <https://docs.python.org/2/reference/simple_stmts.html#the-print-statement>`_
 ------------------------------------------------------------------------------------
 
-`Print is a Function <https://docs.python.org/3/whatsnew/3.0.html#print-is-a-function>`_
+Change in 3.0:
 
-`PEP 3105 <http://legacy.python.org/dev/peps/pep-3105/>`_ -- Make print a function
+  `Print is a Function <https://docs.python.org/3/whatsnew/3.0.html#print-is-a-function>`_
+  `PEP 3105 <http://legacy.python.org/dev/peps/pep-3105/>`_ -- Make print a function
 
 `Exec <https://docs.python.org/2/reference/simple_stmts.html#the-exec-statement>`_
 ----------------------------------------------------------------------------------
 
-`Removed keyword <https://docs.python.org/3/whatsnew/3.0.html#removed-syntax>`_:
+Change in 3.0:
+
+  `Removed keyword <https://docs.python.org/3/whatsnew/3.0.html#removed-syntax>`_:
   exec() is no longer a keyword; it remains as a function.  (Fortunately the function
   syntax was also accepted in 2.x.) Also note that exec() no longer takes a stream
   argument; instead of exec(f) you can use exec(f.read()).
 
 Iterations and Comprehensions
 -----------------------------
+
+In a sense, iterable objects include both physical sequences and virtual sequences computed on demand.
+
 
 
 .. _The Python Language Reference: https://docs.python.org/3/reference/index.html
