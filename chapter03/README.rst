@@ -67,6 +67,14 @@ Example::
   >>> True == False
   True
 
+`Operator precedence`_
+
+::
+
+  +, -, *, /, //, >>, <<, **, &, |, ^, %, ~
+  <, >, !=, ==, <=, >=, in, not in, not, and, or
+
+
 `Built-in functions`_
 
   abs, bin, bool, divmod, float, hex, int, oct, pow, round
@@ -170,14 +178,6 @@ Built-in modules
   >>> data = [2.75, 1.75, 1.25, 0.25, 0.5, 1.25, 3.5]
   >>> variance(data)
   1.3720238095238095
-
-`Operator precedence`_
-
-::
-
-  +, -, *, /, //, >>, <<, **, &, |, ^, %, ~
-  <, >, !=, ==, <=, >=, in, not in, not, and, or
-
 
 New in 2.6
 
@@ -364,6 +364,7 @@ String conversion::
   >>> 'That is {0} {1} bird!'.format(1, 'dead')
   'That is 1 dead bird!'
 
+*str*, the *bytes* type is immutable. There is a separate mutable type to hold buffered binary data, *bytearray*.
 
 `String methods`_ in 3.4
 
@@ -510,31 +511,404 @@ In 2.x::
   (<type 'str'>, "'hello'")
   >>> type(u'你好'), repr(u'你好')
   (<type 'unicode'>, "u'\\u4f60\\u597d'")
+  >>> type('你好'), type(u'hello')
+  (<type 'str'>, <type 'unicode'>)
+
   >>> issubclass(str, basestring)
   True
   >>> issubclass(unicode, basestring)
   True
 
+  >>> u'hello' + ' world'
+  u'hello world'
 
-Lists, Dictionaries, Tuples and Sets
-------------------------------------
+- *str* is 8-bit, it represents ascii string and binary data.
+- *unicode* represents text.
+- unicode.encode => str
+- str.decode => unicode
+- Keep text in unicode inside your system. Encode and decode at the bournday(incoming/outgoing) of your system. 
+- open().read() returns *str*
+
+In 3.x::
+
+  >>> type('hello'), type(u'hello'), type(b'hello')
+  (<class 'str'>, <class 'str'>, <class 'bytes'>)
+
+  >>> type('你好'), type(u'你好')
+  (<class 'str'>, <class 'str'>)
+  >>> type(b'你好')
+    File "<stdin>", line 1
+  SyntaxError: bytes can only contain ASCII literal characters.
+  >>> type('你好'.encode()), repr('你好'.encode())
+  (<class 'bytes'>, "b'\\xe4\\xbd\\xa0\\xe5\\xa5\\xbd'")
+
+  >>> 'hello' + b' world'
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: Can't convert 'bytes' object to str implicitly
+
+  >>> type(open('name.txt').read())
+  <class 'str'>
+  >>> type(open('name.txt', 'br').read())
+  <class 'bytes'>
+  >>> type(os.listdir()[0])
+  <class 'str'>
+  >>> type(sys.argv[0])
+  <class 'str'>
+
+- All text are unicode. The type used to hold text is *str*.
+- Encoded unicode is represented as binary data. The type used to hold binary data is *bytes*.
+- Mixing text and binary data raises TypeError.
+- *basestring* was removed. *str* and *bytes* don't share a base class.
+- open().read() returns *str*; open(, 'b').read() returns *bytes*.
+- sys.stdin, sys.stdout and sys.stderr are unicode-only text files.
+- Filenames are passed to and returned from APIs as (Unicode) strings.
+
+See `Unicode HOWTO`_
 
 Lists
+-----
 
-Dicts
+- Ordered collections of arbitrary objects
+- Accessed by offset
+- Variable-length, heterogeneous, and arbitrarily nestable
+- Of the category “mutable sequence”
+- Arrays of object references
+
+================================= ========================================================
+Operation                         Interpretation
+================================= ========================================================
+L = []                            An empty list
+L = [123, 'abc', 1.23, {}]        Four items: indexes 0..3
+L = ['Bob', 40.0, ['dev', 'mgr']] Nested sublists
+L = list('spam')                  List of an iterable’s items, list of successive integers
+L = list(range(-4, 4))
+L[i]                              Index, index of index, slice, length
+L[i][j]
+L[i:j]
+len(L)
+L1 + L2                           Concatenate, repeat
+L* 3
+for x in L: print(x)              Iteration, membership
+3 in L
+L.append(4)                       Methods: growing
+L.extend([5,6,7])
+L.insert(i, X)
+L.index(X)                        Methods: searching
+L.count(X)
+L.sort()                          Methods: sorting, reversing,
+L.reverse()
+L.copy()                          copying (3.3+), clearing (3.3+)
+L.clear()
+L.pop(i)                          Methods, statements: shrinking
+L.remove(X)
+del L[i]
+del L[i:j]
+L[i:j] = []                       Index assignment, slice assignment
+L[i] = 3
+L[i:j] = [4,5,6]
+L = [x**2 for x in range(5)]      List comprehensions and maps
+list(map(ord, 'spam'))
+================================= ========================================================
+
+Built-in functions range() and xrange()::
+
+  >>> range(5)          # 2.x
+  [0, 1, 2, 3, 4]
+  >>> xrange(5)
+  xrange(5)
+  >>> type(range(5)), type(xrange(5))
+  (<type 'list'>, <type 'xrange'>)
+
+  >>> range(5)          # 3.x
+  range(0, 5)
+  >>> type(range(5))
+  <class 'range'>
+
+Change in 3.0: range() now behaves like xrange() used to behave, except it works with
+  values of arbitrary size. The latter no longer exists.
+
+
+Dictionaries
+------------
+
+- Accessed by key, not offset position
+- Unordered collections of arbitrary objects
+- Variable-length, heterogeneous, and arbitrarily nestable
+- Of the category “mutable mapping”
+- Tables of object references (hash tables)
+
+========================================= ============================================================
+Operation                                 Interpretation
+========================================= ============================================================
+ D = {}                                   Empty dict
+ D = {'name': 'Bob', 'age': 40}           Two items
+ E = {'cto': {'name': 'Bob', 'age': 40}}  Nesting
+ D = dict(name='Bob', age=40)             Alternative construction techniques:
+ D = dict([('name', 'Bob'), ('age', 40)]) keywords, key/value pairs, zipped key/value pairs, key lists
+ D = dict(zip(keyslist, valueslist))
+ D = dict.fromkeys(['name', 'age'])
+ D['name']                                Indexing by key
+ E['cto']['age']
+ 'age' in D                               Membership: key present test
+ D.keys()                                 Methods: all keys,
+ D.values()                               all values,
+ D.items()                                all key+value tuples,
+ D.copy()                                 copy (top-level),
+ D.clear()                                clear (remove all items),
+ D.update(D2)                             merge by keys,
+ D.get(key, default?)                     fetch by key, if absent default (or None),
+ D.pop(key, default?)                     remove by key, if absent default (or error)
+ D.setdefault(key, default?)              fetch by key, if absent set default (or None),
+ D.popitem()                              remove/return any (key, value) pair; etc.
+ len(D)                                   Length: number of stored entries
+ D[key] = 42                              Adding/changing keys
+ del D[key]                               Deleting entries by key
+list(D.keys())                            Dictionary views (Python 3.X)
+ D1.keys() & D2.keys()
+ D.viewkeys(), D.viewvalues()             Dictionary views (Python 2.7)
+ D = {x: x*2 for x in range(10)}          Dictionary comprehensions (Python 3.X, 2.7)
+========================================= ============================================================
+
+Built-in function zip()::
+
+  >>> zip(range(5), 'abc')
+  [(0, 'a'), (1, 'b'), (2, 'c')]
+
+Change in 3.0:
+  zip() now returns an iterator.
 
 Tuples
+------
+
+- Ordered collections of arbitrary objects
+- Accessed by offset
+- Of the category “immutable sequence”
+- Fixed-length, heterogeneous, and arbitrarily nestable
+- Arrays of object references
+
+=================================== ===========================================
+Operation                           Interpretation
+=================================== ===========================================
+()                                  An empty tuple
+T = (0,)                            A one-item tuple (not an expression)
+T = (0, 'Ni', 1.2, 3)               A four-item tuple
+T = 0, 'Ni', 1.2, 3                 Another four-item tuple (same as prior line)
+T = ('Bob', ('dev', 'mgr'))         Nested tuples
+T = tuple('spam')                   Tuple of items in an iterable
+T[i]                                Index, index of index, slice, length
+T[i][j]
+T[i:j]
+len(T)
+T1 + T2                             Concatenate, repeat
+T* 3
+for x in T: print(x)                Iteration, membership
+'spam' in T
+[x ** 2 for x in T]
+T.index('Ni')                       Methods in 2.6, 2.7, and 3.X: search, count
+T.count('Ni')
+namedtuple('Emp', ['name', 'jobs']) Named tuple extension type
+=================================== ===========================================
+
+`Named tuple <https://docs.python.org/3.4/library/collections.html#collections.namedtuple>`_
+  Immutable records
 
 Sets
+----
 
-Slices
+- Unordered collections of arbitrary objects
+- Accessed by iteration, membership test, not offset position
+- Variable-length, heterogeneous, and arbitrarily nestable
+- Of the category “mutable mapping”
+- Collections of object references
 
-Immutables (numbers, strings, tuples, frozensets)
+Notes: largely because of their implementation, sets can only contain immutable
+  (a.k.a. "hashable", __hash__) object types. Hence, lists and dictionaries
+  cannot be embedded in sets, but tuples can if you need to store compound values.
 
-Mutables (lists, dicts, sets, bytearray)
+::
+
+  >>> x = set('abcde')
+  >>> y = set('bdxyz')
+
+  >>> x
+  set(['a', 'c', 'b', 'e', 'd'])
+
+  >>> x − y                                         # Difference
+  set(['a', 'c', 'e'])
+
+  >>> x | y                                         # Uninon
+  set(['a', 'c', 'b', 'e', 'd', 'y', 'x', 'z'])
+
+  >>> x & y                                         # Intersection
+  set(['b', 'd'])
+
+  >>> x ^ y                                         # Symmetric difference (XOR)
+  set(['a', 'c', 'e', 'y', 'x', 'z'])
+
+  >>> x > y, x < y                                  # Superset, subset
+  (False, False)
+
+  >>> 'e' in x                                      # Membership
+  True
+
+  >>> z = x.intersection(y)                         # Same as x & y
+  >>> z
+  set(['b', 'd'])
+
+  >>> z.add('SPAM')                                 # Insert one item
+  >>> z
+  set(['b', 'd', 'SPAM'])
+
+  >>> z.update(set(['X', 'Y']))                     # Merge: in-place union
+  >>> z
+  set(['Y', 'X', 'b', 'd', 'SPAM'])
+
+  >>> z.remove('b')                                 # Delete one item
+  >>> z
+  set(['Y', 'X', 'd', 'SPAM'])
+
+  >>> for item in set('abc'): print(item * 3)       # Iterable, unordered
+  aaa
+  ccc
+  bbb
+
+  >>> {i for i in 'abc'}                            # Set compression
+  set(['a', 'c', 'b'])
+
+`fronzenset <https://docs.python.org/3.4/library/stdtypes.html#set-types-set-frozenset>`_
+  The frozenset type is immutable and hashable — its contents cannot be altered after it is created; it can therefore be used as a dictionary key or as an element of another set.
+
+
+:Immutables:
+  numbers, strings, tuples, frozensets
+
+:Mutables:
+  lists, dicts, sets, bytearray
+
+See `Scala's mutable and immutable collections <http://docs.scala-lang.org/overviews/collections/overview.html>`_
 
 Files
 -----
+
+
+===================================== =====================================================
+Operation                             Interpretation
+===================================== =====================================================
+output = open(r'C:\spam', 'w')        Create output file ('w' means write)
+input = open('data', 'r')             Create input file ('r' means read)
+input = open('data')                  Same as prior line ('r' is the default)
+aString = input.read()                Read entire file into a single string
+aString = input.read(N)               Read up to next N characters (or bytes) into a string
+aString = input.readline()            Read next line (including \n newline) into a string
+aList = input.readlines()             Read entire file into list of line strings (with \n)
+output.write(aString)                 Write a string of characters (or bytes) into file
+output.writelines(aList)              Write all line strings in a list into file
+output.close()                        Manual close (done for you when file is collected)
+output.flush()                        Flush output buffer to disk without closing
+anyFile.seek(N)                       Change file position to offset N for next operation
+for line in open('data'): use line    File iterators read line by line
+open('f.txt', encoding='latin-1')     Python 3.X Unicode text files (str strings)
+open('f.bin', 'rb')                   Python 3.X bytes files (bytes strings)
+codecs.open('f.txt', encoding='utf8') Python 2.X Unicode text files (unicode strings)
+open('f.bin', 'rb')                   Python 2.X bytes files (str strings)
+===================================== =====================================================
+
+Storing Native Python Objects: pickle
+
+::
+
+  >>> D = {'a': 1, 'b': 2}
+  >>> F = open('datafile.pkl', 'wb')
+  >>> import pickle
+  >>> pickle.dump(D, F)                   # Pickle any object to file
+  >>> F.close()
+
+  >>> F = open('datafile.pkl', 'rb')
+  >>> E = pickle.load(F)                  # Load any object from file
+  >>> E
+  {'a': 1, 'b': 2}
+
+  >>> open('datafile.pkl', 'rb').read()   # Format is prone to change!
+  b'\x80\x03}q\x00(X\x01\x00\x00\x00bq\x01K\x02X\x01\x00\x00\x00aq\x02K\x01u.'
+
+
+Storing Python Objects in JSON Format
+
+::
+
+  >>> name = dict(first='Bob', last='Smith')
+  >>> rec = dict(name=name, job=['dev', 'mgr'], age=40.5)
+  >>> rec
+  {'job': ['dev', 'mgr'], 'name': {'last': 'Smith', 'first': 'Bob'}, 'age': 40.5}
+
+  >>> import json
+  >>> S = json.dumps(rec)
+  >>> S
+  '{"job": ["dev", "mgr"], "name": {"last": "Smith", "first": "Bob"}, "age": 40.5}'
+
+  >>> O = json.loads(S)
+  >>> O
+  {'job': ['dev', 'mgr'], 'name': {'last': 'Smith', 'first': 'Bob'}, 'age': 40.5}
+  >>> O == rec
+  True
+
+  >>> json.dump(rec, fp=open('testjson.txt', 'w'), indent=4)
+  >>> print(open('testjson.txt').read())
+  {
+      "job": [
+          "dev",
+          "mgr" ],
+      "name": {
+          "last": "Smith",
+          "first": "Bob"
+      },
+      "age": 40.5
+  }
+  >>> P = json.load(open('testjson.txt'))
+  >>> P
+  {'job': ['dev', 'mgr'], 'name': {'last': 'Smith', 'first': 'Bob'}, 'age': 40.5}
+
+
+Storing Packed Binary Data: struct
+
+  `Format characters <https://docs.python.org/3.4/library/struct.html#format-characters>`_
+
+::
+
+  >>> F = open('data.bin', 'wb')                    # Open binary output file
+  >>> import struct
+  >>> data = struct.pack('>i4sh', 7, b'spam', 8)    # Make packed binary data
+  >>> data
+  b'\x00\x00\x00\x07spam\x00\x08'
+  >>> F.write(data)                                 # Write byte string
+  >>> F.close()
+
+  >>> F = open('data.bin', 'rb')                    # Get packed binary data
+  >>> data = F.read()
+  >>> data
+  b'\x00\x00\x00\x07spam\x00\x08'
+  >>> values = struct.unpack('>i4sh', data)         # Convert to Python objects
+  >>> values
+  (7, b'spam', 8)
+
+
+File Context Managers
+
+::
+
+  with open(r'C:\code\data.txt') as myfile:
+    for line in myfile:
+      ...use line here...
+
+  =>
+
+  myfile = open(r'C:\code\data.txt')
+  try:
+    for line in myfile:
+      ...use line here...
+  finally:
+    myfile.close()
 
 
 .. _PEP 0237: http://legacy.python.org/dev/peps/pep-0237/
