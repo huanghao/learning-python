@@ -147,10 +147,8 @@ Yield expressions::
     for i in range(n):
       yield i
 
-Statements
-----------
-
 Assignment
+----------
 
 ::
 
@@ -164,12 +162,27 @@ Assignment
   a, (b, c), d = [1, [2, 3], 4]
   first, second, *others = range(10)    # py3.
 
+============================ =======================================================
+Operation   Interpretation
+============================ =======================================================
+spam = 'Spam'                Basic form
+spam, ham = 'yum', 'YUM'     Tuple assignment (positional)
+[spam, ham] = ['yum', 'YUM'] List assignment (positional)
+a, b, c, d = 'spam'          Sequence assignment, generalized
+a, \*b = 'spam'              Extended sequence unpacking (Python 3.X)
+spam = ham = 'lunch'         Multiple-target assignment
+spams += 42                  Augmented assignment (equivalent to spams = spams + 42)
+============================ =======================================================
+
 `PEP 3132 <https://www.python.org/dev/peps/pep-3132>`_ - Extended Iterable Unpacking. The specification for the \*target feature.
 
 Pass
-  when it is excuted, nothing happens. It's useful as a placeholder
+----
+
+when it is excuted, nothing happens. It's useful as a placeholder
 
 If
+--
 
 ::
 
@@ -180,7 +193,10 @@ If
   else:
     print 'Zero'
 
-Loop: for, while, break, continue
+Loop
+---------------------------------
+
+for, while, break, continue
 
 ::
 
@@ -198,6 +214,7 @@ Loop: for, while, break, continue
 Notes: *break* terminates the nearest enclosing loop, skipping the optional *else* clause if the loop has one.
 
 Try/Raise
+---------
 
 ::
 
@@ -219,6 +236,7 @@ Try/Raise
     print "This block is always evaluated"
 
 With
+----
 
 ::
 
@@ -244,6 +262,7 @@ Context Manager
       do some thing
 
 Yield
+-----
 
 ::
 
@@ -253,6 +272,7 @@ Yield
       n += 1
 
 Return
+------
 
 ::
 
@@ -266,6 +286,7 @@ Return
     pass
 
 Import
+------
 
 ::
 
@@ -280,11 +301,13 @@ Import
   from pyquery import PyQuery as pq
 
 Future #TODO
+------------
 
 `PEP 236 <http://legacy.python.org/dev/peps/pep-0236/>`_ - Back to the __future__
 
 
 Global, local and nonlocal
+--------------------------
 
 ::
 
@@ -333,6 +356,7 @@ built-in functions: locals(), globals()
 `PEP 3104 <http://legacy.python.org/dev/peps/pep-3104/>`_ - Access to Names in Outer Scopes. The specification for the nonlocal statement.
 
 Assert
+------
 
 ::
 
@@ -351,6 +375,7 @@ under normal circumstances, False when optimization is requested (command
 line option -O). Assignments to __debug__ are illegal.
 
 Del
+---
 
 ::
 
@@ -375,14 +400,23 @@ Del
   AttributeError: Foo instance has no attribute 'a'
 
 `Print <https://docs.python.org/2/reference/simple_stmts.html#the-print-statement>`_
-  `Print is a Function <https://docs.python.org/3/whatsnew/3.0.html#print-is-a-function>`_
-  `PEP 3105 <http://legacy.python.org/dev/peps/pep-3105/>`_ -- Make print a function
+------------------------------------------------------------------------------------
+
+`Print is a Function <https://docs.python.org/3/whatsnew/3.0.html#print-is-a-function>`_
+
+`PEP 3105 <http://legacy.python.org/dev/peps/pep-3105/>`_ -- Make print a function
 
 `Exec <https://docs.python.org/2/reference/simple_stmts.html#the-exec-statement>`_
-  `Removed keyword <https://docs.python.org/3/whatsnew/3.0.html#removed-syntax>`_:
+----------------------------------------------------------------------------------
+
+`Removed keyword <https://docs.python.org/3/whatsnew/3.0.html#removed-syntax>`_:
   exec() is no longer a keyword; it remains as a function.  (Fortunately the function
   syntax was also accepted in 2.x.) Also note that exec() no longer takes a stream
   argument; instead of exec(f) you can use exec(f.read()).
+
+Iterations and Comprehensions
+-----------------------------
+
 
 .. _The Python Language Reference: https://docs.python.org/3/reference/index.html
 .. _Special method names: https://docs.python.org/3/reference/datamodel.html#specialnames

@@ -41,16 +41,6 @@ Content
   - PySolFC
   - Django, TruboGears, web2py, Pylons, Zope, WebWare
   - IronPython, pyjs(a.k.a pyjamas)
-3. Syntax
-  - keyworks
-  - pass
-  - if, else, elseif
-  - for in, while, break/continue
-  - try, catch, raise
-  - assignment
-  - print
-  - comprehension
-  - docstring, help, dir, pydoc
 4. Functions
   - def
   - lambda, expressions vs statements
