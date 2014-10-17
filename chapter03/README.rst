@@ -58,14 +58,43 @@ Example::
   15
   >>> (2 + 1j) * -1j
   (1-2j)
-  >>> bool(3) and True or False
-  True
   >>> ({1, 2, 3} & { 3, 5, 7} | {3, 4}) - {Decimal('3')}
   set([4])
   >>> Decimal('3') == 3
   True
+
+  >>> True = False    # 2.x
+  >>> True == False
+  True
+
+`Built-in functions`_
+
+  abs, bin, bool, divmod, float, hex, int, oct, pow, round
+
+::
+ 
+  >>> bool(3) and True or False
+  True
   >>> ' '.join([bin(13),  hex(13), oct(13)])
   '0b1101 0xd 015'
+  >>> divmod(7, 3)
+  (2, 1)
+  >>> abs(-3)
+  3
+  >>> pow(2, 8) == 2 ** 8
+  True
+  >>> round(3.14)
+  3.0
+  >>> int('3') + float('.5')
+  5.5
+  >>> int('10', base=16) - int('10') - int('10', base=8) - int('10', base=2)
+  -4
+
+Built-in modules
+
+  numbers, math, cmath, decimal, fractions, random, statistics
+
+::
 
   >>> type(3)        # 2.x
   <type 'int'>
@@ -75,6 +104,12 @@ Example::
   1267650600228229401496703205376L
   >>> type(3L)
   <type 'long'>
+
+  >>> from numbers import Number, Complex, Real, Rational, Integral
+  >>> issubclass(Integral, Complex)
+  True
+  >>> isinstance(1, Complex)
+  True
 
   >>> math.factorial(3) + math.log(math.e) + math.sqrt(9) + math.sin(math.pi/2) + math.ceil(0.1)  # 6+1+3+1+1
   12.0
@@ -123,12 +158,6 @@ Example::
   >>> gcd(15, 6)
   >>> 3
 
-  >>> from numbers import Number, Complex, Real, Rational, Integral
-  >>> issubclass(Integral, Complex)
-  True
-  >>> isinstance(1, Complex)
-  True
-
   >>> from statistics import *
   >>> mean([1, 2, 3, 4, 4])
   >>> 2.8
@@ -142,24 +171,14 @@ Example::
   >>> variance(data)
   1.3720238095238095
 
-  >>> True = False    # 2.x
-  >>> True == False
-  True
+`Operator precedence`_
 
-`Operations <Precedence_>`_::
+::
 
   +, -, *, /, //, >>, <<, **, &, |, ^, %, ~
   <, >, !=, ==, <=, >=, in, not in, not, and, or
 
-`Built-in functions`_
 
-  abs, bin, bool, divmod, float, hex, int, oct, pow, round
-
-Built-in modules
-
-  numbers, math, cmath, decimal, fractions, random, statistics
-
- 
 New in 2.6
 
 - `PEP 3141`_: A Type Hierarchy for Numbers
@@ -199,28 +218,28 @@ Implicit concatenation::
 
 Escape characters
 
-============ ==============================================
-Escape       Meaning
-============ ==============================================
-`\newline`   Ignored(continuation line)
-`\\`         Backslash (stores one `\`)
-`\'`         Single quote(stores ')
-`\"`         Double quote(stores ")
-`\a`         Bell
-`\b`         Backspace
-`\f`         Formfeed
-`\n`         Newline(linefeed)
-`\r`         Carriage return
-`\t`         Horizontal tab
-`\v`         Vertical tab
-`\xhh`       Character with hex value hh(exactly 2 digits)
-`\ooo`       Character with octal value ooo(up to 3 digits)
-`\0`         Null: binary 0 character(doesn't end string)
-`\N{id}`     Unicode database ID
-`\uhhhh`     Unicode character with 16bit hex value
-`\Uhhhhhhhh` Unicode character with 32bit hex value
-`\other`     Not an escape(keeps both `\` and other)
-============ ==============================================
+============== ==============================================
+Escape         Meaning
+============== ==============================================
+``\newline``   Ignored(continuation line)
+``\\``         Backslash (stores one ``\``)
+``\'``         Single quote(stores ')
+``\"``         Double quote(stores ")
+``\a``         Bell
+``\b``         Backspace
+``\f``         Formfeed
+``\n``         Newline(linefeed)
+``\r``         Carriage return
+``\t``         Horizontal tab
+``\v``         Vertical tab
+``\xhh``       Character with hex value hh(exactly 2 digits)
+``\ooo``       Character with octal value ooo(up to 3 digits)
+``\0``         Null: binary 0 character(doesn't end string)
+``\N{id}``     Unicode database ID
+``\uhhhh``     Unicode character with 16bit hex value
+``\Uhhhhhhhh`` Unicode character with 32bit hex value
+``\other``     Not an escape(keeps both ``\`` and other)
+============== ==============================================
 
 Raw strings suppress escapes::
 
@@ -314,11 +333,10 @@ String conversion::
   >>> chr(115)
   's'
 
-*Changing* string::
+**Changing** string::
 
-  # Immutable objects
-  >>> S = 'spam'
-  >>> S[0] = 'x'       # Raises an error!
+  >>> S = 'spam'      # Immutable objects
+  >>> S[0] = 'x'      # Raises an error!
   TypeError: 'str' object does not support item assignment
 
   >>> S = S + 'SPAM!'  # To change a string, make a new one
@@ -346,6 +364,7 @@ String conversion::
   >>> 'That is {0} {1} bird!'.format(1, 'dead')
   'That is 1 dead bird!'
 
+
 `String methods`_ in 3.4
 
 - str.capitalize
@@ -354,13 +373,57 @@ String conversion::
 - str.count
 - **str.encode(encoding="utf-8",-errors="strict")**
 - **str.endswith(suffix[,-start[,-end]])**
+
+::
+
+  >>> [name for name in os.listdir('/etc/') if name.endswith('.conf')][:5]
+  ['asl.conf', 'autofs.conf', 'dnsextd.conf', 'ftpd.conf', 'ip6addrctl.conf']
+
 - str.expendtabs
 - **str.find(sub[,-start[,-end]])**
+
+::
+
+  >>> 'abcd'.find('a')
+  0
+  >>> 'abcd'.find('1')
+  -1
+  >>> 'abcd'.find('d', 2)
+  3
+  >>> 'abcd'.find('d')
+  3
+
 - **str.format(*args, **kwargs)**
 - str.format_map
 - **str.index(sub[, start[, end]])**
+
+::
+
+  >>> 'abcd'.find('e')
+  -1
+  >>> 'abcd'.index('e')
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  ValueError: substring not found
+
 - str.isalnum
 - **str.isalpha()**
+
+::
+
+  >>> 'abd'.isalpha()
+  True
+  >>> 'abd1'.isalpha()
+  False
+  >>> '1234'.isdigit()
+  True
+  >>> '123a'.isdigit()
+  False
+  >>> '12ab'.isalnum()
+  True
+  >>> '\n\t '.isspace()
+  True
+
 - str.isdecimal
 - str.isdigit
 - str.isidentifier
@@ -371,12 +434,34 @@ String conversion::
 - str.istitle
 - str.isupper
 - **str.join(iterable)**
+
+::
+
+  >>> ','.join(['ab', 'c', 'd'])
+  'ab,c,d'
+  >>> ','.join('abcd')
+  'a,b,c,d'
+
 - str.ljust
 - **str.lower()**
+
+::
+
+  >>> 'PyTHon'.lower()
+  'python'
+  >>> 'PyTHon'.upper()
+  'PYTHON'
+
 - str.lstrip
 - str.maketrans
 - str.partition
 - **str.replace(old, new[, count])**
+
+::
+
+  >>> 'PyTHon'.replace('TH', 'C')
+  'PyCon'
+
 - str.rfind
 - str.rindex
 - str.rjust
@@ -384,9 +469,29 @@ String conversion::
 - str.rsplit
 - str.rstrip
 - **str.split(sep=None, maxsplit=-1)**
+
+::
+
+  >>> 'a b  \t\t c\nd'.split()
+  ['a', 'b', 'c', 'd']
+  >>> 'a,b,c,d'.split(',')
+  ['a', 'b', 'c', 'd']
+  >>> 'a b  \t\t c\nd'.split(None, 2)
+  ['a', 'b', 'c\nd']
+
 - **str.splitlines([keepends])**
 - **str.startswith(prefix[, start[, end]])**
 - **str.strip([chars])**
+
+::
+
+  >>> '   line\n'.strip()
+  'line'
+  >>> '   line\n'.lstrip()
+  'line\n'
+  >>> '   line\n'.rstrip()
+  '   line'
+
 - str.swapcase
 - str.title
 - str.translate
@@ -395,7 +500,7 @@ String conversion::
 
 `printf-style String Formatting`_
 
-  %s, %d
+  %s, %d, %f, %g, %x
 
 `Text vs. data instead of unicode vs. 8-bit`_
 
@@ -409,7 +514,6 @@ In 2.x::
   True
   >>> issubclass(unicode, basestring)
   True
-
 
 
 Lists, Dictionaries, Tuples and Sets

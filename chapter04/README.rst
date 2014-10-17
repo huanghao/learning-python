@@ -152,7 +152,19 @@ Statements
 
 Assignment
 
-  =, +=, \*=
+::
+
+  i = 1
+  i += 2
+
+  a, b = 2, 3.14
+  a, b = b, a     # swap
+
+  first, second, _ = (1, 2, 3)          # pattern match
+  a, (b, c), d = [1, [2, 3], 4]
+  first, second, *others = range(10)    # py3.
+
+`PEP 3132 <https://www.python.org/dev/peps/pep-3132>`_ - Extended Iterable Unpacking. The specification for the \*target feature.
 
 Pass
   when it is excuted, nothing happens. It's useful as a placeholder
@@ -268,16 +280,99 @@ Import
   from pyquery import PyQuery as pq
 
 Future #TODO
-PEP 236 - Back to the __future__
-http://legacy.python.org/dev/peps/pep-0236/
+
+`PEP 236 <http://legacy.python.org/dev/peps/pep-0236/>`_ - Back to the __future__
+
 
 Global, local and nonlocal
-PEP 3104 - Access to Names in Outer Scopes
-http://legacy.python.org/dev/peps/pep-3104/
+
+::
+
+  a = 1
+
+  def foo():
+    global a
+    a = 2
+
+  def bar():
+    a = 2   # local
+
+  print(a)  # => 1
+  bar()
+  print(a)  # => 1
+  foo()
+  print(a)  # => 2
+
+built-in functions: locals(), globals()
+
+::
+
+  def create_account(initial):
+    balance = initial
+
+    def query():
+      return balance
+
+    def dec(n):
+      nonlocal balance
+      if balance < n:
+        raise ValueError('Not enough money')
+      balance -= n
+      
+    return {
+      'query': query,
+      'dec': dec,
+      }
+
+  a1 = make_account(100)
+  a2 = make_account(100)
+  a1['dec'](50)
+  print(a1['query'])    # => 50
+  print(a2['query'])    # => 100
+
+`PEP 3104 <http://legacy.python.org/dev/peps/pep-3104/>`_ - Access to Names in Outer Scopes. The specification for the nonlocal statement.
 
 Assert
 
+::
+
+  def factorial(n):
+    assert n >= 0 and isinstance(n, numbers.Integral), \
+      "Factorial of negative and non-integral is undefined"
+
+  assert expression1 [, expression2]
+  =>
+  if __debug__:
+    if not expression1:
+      raise AssertError(expression2):
+
+In the current implementation, the built-in variable __debug__ is True
+under normal circumstances, False when optimization is requested (command
+line option -O). Assignments to __debug__ are illegal.
+
 Del
+
+::
+
+  >>> a = 1
+  >>> del a
+  >>> a
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  NameError: name 'a' is not defined
+
+  >>> class Foo:
+  ...   def __init__(self, a):
+  ...     self.a = a
+  ...
+  >>> foo = Foo(3)
+  >>> foo.a
+  3
+  >>> del foo.a
+  >>> foo.a
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  AttributeError: Foo instance has no attribute 'a'
 
 `Print <https://docs.python.org/2/reference/simple_stmts.html#the-print-statement>`_
   `Print is a Function <https://docs.python.org/3/whatsnew/3.0.html#print-is-a-function>`_
