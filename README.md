@@ -1,9 +1,9 @@
 learning-python
 ===============
 
-[![Documentation Status](https://readthedocs.org/projects/learning-python/badge/?version=latest)](https://readthedocs.org/projects/learning-python/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/learning-python/badge/?version=master)](https://readthedocs.org/projects/learning-python/?badge=master)
                 
-See http://learning-python.readthedocs.org/en/latest/
+See http://learning-python.readthedocs.org/en/master/
 
 Or run this command to get local document.
 
