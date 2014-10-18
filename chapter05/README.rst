@@ -254,7 +254,7 @@ Anonymous Functions: lambda
 Functional programming tools
 ----------------------------
 
-map, filter, reduce
+map, filter, functools.reduce
 
 Generator functions
 -------------------
