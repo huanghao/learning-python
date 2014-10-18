@@ -174,6 +174,18 @@ spam = ham = 'lunch'         Multiple-target assignment
 spams += 42                  Augmented assignment (equivalent to spams = spams + 42)
 ============================ =======================================================
 
+Assignments create references not copies::
+
+  >>> class Foo: pass
+  ...
+  >>> a = Foo()
+  >>> b = a, c = copy.copy(a)
+  >>> id(a), id(b), id(c)
+  (4378338248, 4378338248, 4378329040)
+
+Quiz: What happens when copy built-in types such as *int* ?
+
+
 `PEP 3132 <https://www.python.org/dev/peps/pep-3132>`_ - Extended Iterable Unpacking. The specification for the \*target feature.
 
 Pass
@@ -533,7 +545,7 @@ Set comprehensions::
   >>> {x for x in 'abc'}
   {'a', 'c', 'b'}
 
-Generator comprehensions::
+Generator expressions::
 
   >>> (x for x in 'abc')
   <generator object <genexpr> at 0x104f3ca20>
