@@ -41,15 +41,6 @@ Content
   - PySolFC
   - Django, TruboGears, web2py, Pylons, Zope, WebWare
   - IronPython, pyjs(a.k.a pyjamas)
-4. Functions
-  - def
-  - lambda, expressions vs statements
-  - scopes
-  - arguments
-  - map/filter/reduce
-  - builtins: sorted, id
-  - Generators, yield, itertools
-  - Decorators, functools
 5. Modules
   - import, from import
   - __all__, __dict__, __name__, __main__

@@ -353,3 +353,97 @@ However, unlike an ordinary loop, yield from allows subgenerators to receive sen
 
 See `PEP 380 <http://www.python.org/dev/peps/pep-0380>`_: Syntax for Delegating to a Subgenerator
 
+`itertools <https://docs.python.org/3.5/library/itertools.html>`_: Functions creating iterators for efficient looping
+
+::
+
+  >>> from itertools import *
+  >>> def take(n, iterable):
+  ...     "Return first n items of the iterable as a list"
+  ...     return list(islice(iterable, n))
+  ...
+  >>>
+
+  >>> take(10, count(2))
+  [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+  >>> take(10, cycle('abcd'))
+  ['a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b']
+  >>> take(5, repeat(6))
+  [6, 6, 6, 6, 6]
+
+  >>> list(accumulate([1,2,3,4,5]))
+  [1, 3, 6, 10, 15]
+  >>> list(chain('abc', 'ABC'))
+  ['a', 'b', 'c', 'A', 'B', 'C']
+  >>> list(takewhile(lambda x: x<5, [1,4,6,4,1]))
+  [1, 4]
+
+  >>> list(permutations('ABCD', 2))
+  [('A', 'B'), ('A', 'C'), ('A', 'D'), ('B', 'A'), ('B', 'C'), ('B', 'D'), ('C', 'A'), ('C', 'B'), ('C', 'D'), ('D', 'A'), ('D', 'B'), ('D', 'C')]
+  >>> list(combinations('ABCD', 2))
+  [('A', 'B'), ('A', 'C'), ('A', 'D'), ('B', 'C'), ('B', 'D'), ('C', 'D')]
+
+
+Function Decorators
+-------------------
+
+Decorator is just a function returning another function.
+It is merely syntactic sugar, the following two function definitions are semantically equivalent::
+
+  @f1(arg)
+  @f2
+  def func(): pass
+
+  def func(): pass
+  func = f1(arg)(f2(func))
+
+Common examples for decorators are classmethod() and staticmethod()::
+
+  def f(...):
+      ...
+  f = staticmethod(f)
+
+  @staticmethod
+  def f(...):
+      ...
+
+`functools <https://docs.python.org/3.5/library/functools.html>`_
+
+::
+
+  >>> def bar(func):
+  ...   def inner():
+  ...     print('New function')
+  ...     return func()
+  ...   return inner
+  ...
+  >>> @bar
+  ... def foo():
+  ...   print('I am foo')
+  ...
+  >>> foo()
+  New function
+  I am foo
+  >>> foo.__name__    # It's bad!
+  'inner'
+
+  >>> from functools import wraps
+  >>> def my_decorator(f):
+  ...     @wraps(f)
+  ...     def wrapper(*args, **kwds):
+  ...         print('Calling decorated function')
+  ...         return f(*args, **kwds)
+  ...     return wrapper
+  ...
+  >>> @my_decorator
+  ... def example():
+  ...     """Docstring"""
+  ...     print('Called example function')
+  ...
+  >>> example()
+  Calling decorated function
+  Called example function
+  >>> example.__name__
+  'example'
+  >>> example.__doc__
+  'Docstring'
