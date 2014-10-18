@@ -417,11 +417,77 @@ Change in 3.0:
   syntax was also accepted in 2.x.) Also note that exec() no longer takes a stream
   argument; instead of exec(f) you can use exec(f.read()).
 
-Iterations and Comprehensions
------------------------------
+Iterations
+----------
 
 In a sense, iterable objects include both physical sequences and virtual sequences computed on demand.
 
+The full iteration protocol: iter, next and StopIteration
+
+- The *iterable* object you request iteration for, whose *__iter__* is run by *iter*
+- The *iterator* object returned by the iterable that actually produces values during the iteration, whose *__next__* is run by next and raises *StopIteration* when finished producing results
+
+`PEP 3114 <http://www.python.org/dev/peps/pep-3114>`_: the standard next() method has been renamed to __next__().
+
+::
+
+  >>> l = [1,2,3]
+  >>> next(l)
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: 'list' object is not an iterator
+  >>> iter(None)
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: 'NoneType' object is not iterable
+
+  >>> i, j = iter(l), iter(l)
+  >>> i.__next__()
+  1
+  >>> next(i)
+  2
+  >>> next(j)
+  1
+  >>> next(i)
+  3
+  >>> next(i)
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  StopIteration
+
+  >>> f = open('tt.py')
+  >>> iter(f) is f
+  True
+  >>> f.__next__()
+  'x = 7\n'
+  >>> next(f)
+  'while x > 0:\n'
+
+Techically, when the for loop begins, it first obtains an iterator from the iterable object by passing it to the iter built-in function; the object returned by iter in turn has the required next method. 
+
+A generator is also an iterator
+
+::
+
+  >>> def foo():
+  ...     yield 1
+  ...     yield 2
+  ...
+  >>> i = foo()
+  >>> next(i)
+  1
+  >>>
+  >>> next(i)
+  2
+  >>> next(i)
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  StopIteration
+
+  >>> type(foo)
+      <type 'function'>
+  >>> type(i)
+  <type 'generator'>
 
 
 .. _The Python Language Reference: https://docs.python.org/3/reference/index.html
