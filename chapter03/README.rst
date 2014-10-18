@@ -18,6 +18,23 @@ modules        import,`__module__`
 classes        object,types,metaclasses
 =============  ============================================
 
+None
+----
+
+A special object serves as an empty placeholder (much like a NULL pointer in C).
+it is returned from functions that don’t explicitly return anything.
+
+::
+
+  >>> None, type(None)
+  (None, <type 'NoneType'>)
+
+  >>> def foo(): pass
+  ...
+  >>> print foo()
+  None
+
+
 Numeric types
 -------------
 
@@ -788,6 +805,30 @@ Notes: largely because of their implementation, sets can only contain immutable
 
 See `Scala's mutable and immutable collections <http://docs.scala-lang.org/overviews/collections/overview.html>`_
 
+The meaning of True and False in Python
+---------------------------------------
+
+True and false are intrinsic properties of every object in Python,
+each object is either ture of false, as follows:
+
+- Numbers are false if zero, and true otherwise
+- Other objects are false if empty, and true otherwise
+
+:False:
+  None, '', [], {}, 0, 0.0, (), set([])
+
+:True:
+  "something", [1, 2], {'eggs': 'spam'}, 1, 0.1, (3, 4), {5, 6}
+
+::
+
+  d = {1: 2}
+  if d:
+    print "it goes here"
+  else:
+    print "not here"
+
+
 Files
 -----
 
@@ -910,6 +951,140 @@ File Context Managers
   finally:
     myfile.close()
 
+`The standard type hierarchy`_
+------------------------------
+
+None
+  This type has a single value.
+
+NotImplemented
+  This type has a single value. raise NotImplemented
+
+::
+
+  class CarInterface:
+
+    def drive(self):
+      raise NotImplemented
+
+Ellipsis
+  This type has a single value. literal **...** or the built-in name **Ellipsis**.
+
+::
+
+  >>> ...
+  Ellipsis
+  >>> bool(...)
+  True
+  >>> def foo():
+  ...   ...
+  ...
+  >>> foo
+  <function foo at 0x10606a840>
+
+  >>> a = [1]
+  >>> a.append(a)
+  >>> a
+  [1, [...]]
+
+  >>> from numpy import array
+  >>> a = array([[1,2,3], [4,5,6], [7,8,9]])
+  >>> a
+  array([[1, 2, 3],
+         [4, 5, 6],
+         [7, 8, 9]])
+  >>> a[...,1]
+  array([2, 5, 8])
+  >>> a[1,...]
+  array([4, 5, 6])
+
+numbers.Number
+
+- numbers.Integral: Integers(int), Booleans(bool)
+- numbers.Real(float)
+- numbers.Complex(complex)
+
+Sequences
+
+- Immutable: Strings, Tuples, Bytes
+- Mutable: Lists, ByteArrays
+
+Set types
+
+- Mutable: Sets
+- Immutable: ForzenSets
+
+Mappings
+
+  Mutable: Dictionaries
+
+Callable types
+
+- User-defined functions
+- Instance methods
+- Generators
+- Built-in functions
+- Built-in methods
+- Classes: __new__, __init__
+- Class instances: __call__
+
+Modules
+
+I/O objects(Also known as file objects)
+
+`Internal types <https://docs.python.org/3.5/library/language.html#python-language-services>`_
+
+- Code objects
+- Frame objects
+- Traceback objecs
+- Slice objects
+- Static methods objects
+- Class methods objects
+
+Type objects
+------------
+
+The largest point to notice here is that everything in a Python system is an **object** type.
+In fact, even types themselves are an object type in Python: the type of an object is an object of type **type**.
+
+::
+
+  >>> class Foo: pass
+  ...
+  >>> type(Foo())
+  <class '__main__.Foo'>
+  >>> type(Foo)
+  <class 'type'>
+  >>> issubclass(Foo, object)
+  True
+  >>> isinstance(Foo, type)
+  True
+
+  >>> type(object)
+  <class 'type'>
+  >>> type(type)
+  <class 'type'>
+
+  >>> type(1)
+  <class 'int'>
+  >>> type(int)
+  <class 'type'>
+  >>> issubclass(int, object)
+  True
+
+  >>> def foo(): pass
+  ...
+  >>> import types
+  >>> types.FunctionType
+  <class 'function'>
+  >>> type(foo) == types.FunctionType
+  True
+  >>> type(types.FunctionType)
+  <class 'type'>
+
+- See `types — Dynamic type creation and names for built-in types <https://docs.python.org/3.5/library/types.html>`_
+- See `PEP 3115 -- Metaclasses in Python 3000 <http://legacy.python.org/dev/peps/pep-3115/>`_
+
 
 .. _PEP 0237: http://legacy.python.org/dev/peps/pep-0237/
 .. _PEP 0238: http://legacy.python.org/dev/peps/pep-0238/
@@ -922,3 +1097,4 @@ File Context Managers
 .. _printf-style String Formatting: https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting
 .. _Text vs. data instead of unicode vs. 8-bit: https://docs.python.org/3/whatsnew/3.0.html#text-vs-data-instead-of-unicode-vs-8-bit
 .. _Unicode HOWTO: https://docs.python.org/3/howto/unicode.html#unicode-howto
+.. _The standard type hierarchy: https://docs.python.org/3.5/reference/datamodel.html#the-standard-type-hierarchy
