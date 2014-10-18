@@ -489,6 +489,55 @@ A generator is also an iterator
   >>> type(i)
   <type 'generator'>
 
+Comprehensions
+--------------
+
+Syntactically, its syntax is derived from a construct in set theory notation that applies an operation to each item in a set.
+
+List comprehensions::
+
+  >>> l = [1, 2, 3, 4, 5]
+  >>> res = []
+  >>> for x in l:
+  ...   res.append(x + 10)
+  ...
+  >>> res
+  [11, 12, 13, 14, 15]
+
+  >>> [x + 10 for x in l]
+  [11, 12, 13, 14, 15]
+
+Notes: list comprehensions might run much faster than manual for loop statements (often roughly twice as fast) because their iterations are performed at C language speed inside the interpreter, rather than with manual Python code. Especially for larger data sets, there is often a major performance advantage to using this expression.
+
+Filter clauses: if
+
+::
+
+  >>> [x + 10 for x in l if x % 2 == 0]
+  [12, 14]
+
+Nested loops: for
+
+::
+
+  >>> [x + y for x in 'abc' for y in '123']
+  ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3']
+
+Dict comprehensions::
+
+  >>> {x:ord(x)-ord('a') for x in 'abc'}
+  {'a': 0, 'c': 2, 'b': 1}
+
+Set comprehensions::
+
+  >>> {x for x in 'abc'}
+  {'a', 'c', 'b'}
+
+Generator comprehensions::
+
+  >>> (x for x in 'abc')
+  <generator object <genexpr> at 0x104f3ca20>
+
 
 .. _The Python Language Reference: https://docs.python.org/3/reference/index.html
 .. _Special method names: https://docs.python.org/3/reference/datamodel.html#specialnames
