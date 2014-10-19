@@ -12,57 +12,6 @@ Or run this command to get local document.
 Content
 -------
 
-2. Demos
-  - C extensions, ctypes, cython, swig, sip, pyrex
-  - i18n & l11n, babel, pytz, dateutil, lunar, datetime
-  - Tkinter, Wxpython, PyQT, PyGTK, PyWin32, IronPython, Jython, JPype
-  - Numpy, Scipy, Matplotlib, sympy, networkX, panda
-  - pygame, cgkit, pyglet, PySoy, Panda3D
-  - Xapian
-  - NLTK
-  - PIL, Pillow, PyOpenGL, Blender, Maya
-  - PyMedia, ID3
-  - scikit-learn, PyBrain, Milk
-  - GAE
-  - OpenStack
-  - Crypto, cryptography, pycrypto, pyOpenSSL, m2crypto, paramiko
-  - PySerial
-  - PyRo
-  - Raspberry Pi, Arduino
-  - PyXLL, DataNitro
-  - PyCLIPS, Pyke, Pyrolog, pyDatalog
-  - zenoss
-  - PythonCAD, PythonOCC, FreeCAD
-  - ReportLab, Sphinx, Cheetah, PyPDF
-  - Mayavi, matplotlib, VTK, VPython
-  - lxml, xmlrpclib
-  - json, csv
-  - Orange, Pattern bundle, Scrapy
-  - PySolFC
-  - Django, TruboGears, web2py, Pylons, Zope, WebWare
-  - IronPython, pyjs(a.k.a pyjamas)
-5. Modules
-  - import, from import
-  - __all__, __dict__, __name__, __main__
-  - reload
-  - system path, site-packages, sys.path
-  - PYTHONPATH
-  - Absoluate vs relative importing
-  - __init__.py
-  - __pycache__
-  - namespace package
-6. Classes
-  - OOP
-  - classmethod, staticmethod
-  - Inheritance, super
-  - Properties
-  - Operator overloading
-  - __getattr__, __getattribute__
-  - Advanced topics
-    - Extending builtin types
-    - Classic and New styles
-    - MRO
-    - Metaclass
 7. Exceptions
   - try/expect/else/finally
   - raise Exc/raise
@@ -145,3 +94,33 @@ Content
 19. Py3
   - six
   - 2to3
+2. Demos
+  - C extensions, ctypes, cython, swig, sip, pyrex
+  - i18n & l11n, babel, pytz, dateutil, lunar, datetime
+  - Tkinter, Wxpython, PyQT, PyGTK, PyWin32, IronPython, Jython, JPype
+  - Numpy, Scipy, Matplotlib, sympy, networkX, panda
+  - pygame, cgkit, pyglet, PySoy, Panda3D
+  - Xapian
+  - NLTK
+  - PIL, Pillow, PyOpenGL, Blender, Maya
+  - PyMedia, ID3
+  - scikit-learn, PyBrain, Milk
+  - GAE
+  - OpenStack
+  - Crypto, cryptography, pycrypto, pyOpenSSL, m2crypto, paramiko
+  - PySerial
+  - PyRo
+  - Raspberry Pi, Arduino
+  - PyXLL, DataNitro
+  - PyCLIPS, Pyke, Pyrolog, pyDatalog
+  - zenoss
+  - PythonCAD, PythonOCC, FreeCAD
+  - ReportLab, Sphinx, Cheetah, PyPDF
+  - Mayavi, matplotlib, VTK, VPython
+  - lxml, xmlrpclib
+  - json, csv
+  - Orange, Pattern bundle, Scrapy
+  - PySolFC
+  - Django, TruboGears, web2py, Pylons, Zope, WebWare
+  - IronPython, pyjs(a.k.a pyjamas)
+
