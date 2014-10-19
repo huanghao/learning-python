@@ -148,6 +148,9 @@ dir0/dir1/dir2/mod.py
 - dir0, the container, does not require an __init__.py file; this file will simply be ignored if present.
 - dir0, not dir0/dir1, must be listed on the module search path sys.path.
 
+Package initialization file roles
 
-
-
+- Package initialization
+- Module usability declarations
+- Module namespace initialization
+- from \* statmenet behavior
