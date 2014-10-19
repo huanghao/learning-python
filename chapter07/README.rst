@@ -152,8 +152,7 @@ Operator overloadding
   six - one = ten - five
 
 
-Full list of numeric types
-
+Full methods list for numeric types
 
 ================ ================
 Method           Operator
@@ -183,6 +182,146 @@ __float__        float
 __round__        round
 __index__        operator.index()
 ================ ================
+
+Comparisons
+
+====== ========
+Method Operator
+====== ========
+__lt__ <
+__le__ <=
+__eq__ ==
+__ne__ !=
+__gt__ >
+__ge__ >=
+====== ========
+
+To automatically generate ordering operations from a single root operation,
+see `functools.total_ordering() <https://docs.python.org/3.4/library/functools.html#functools.total_ordering>`_.
+
+String related
+
+========== ========
+Method     Operator
+========== ========
+__str__    str
+__repr__   repr
+__bytes__  bytes
+__format__ format
+========== ========
+
+Emulating callable objects
+
+======== ========
+Method   Operator
+======== ========
+__call__ ()
+======== ========
+
+::
+
+  >>> class Foo:
+  ...   def __call__(self):
+  ...     print("Callable")
+  ...
+  >>> foo = Foo()
+  >>> foo()
+  Callable
+
+Emulating container types
+
+============== ======================
+Method         Operator
+============== ======================
+__len__        len
+__length_hit__ operator.length_hint()
+__getitem__    v = obj[key]
+__setitem__    obj[key] = v
+__delitem__    del obj[key]
+__iter__       for _ in obj, Iteration
+__reversed__   reversed()
+__contains__   key in obj
+============== ======================
+
+With statment context manager
+
+========= ========
+Method    Operator
+========= ========
+__enter__ with
+__exit__  with
+========= ========
+
+::
+
+  class cd:
+
+      def __init__(self, path):
+          self.path = path
+          self.old = os.getcwd()
+
+      def __enter__(self):
+          os.chdir(self.path)
+
+      def __exit__(self, exc_type, exc_value, traceback):
+          os.chdir(self.old)
+
+    with cd('/some/path'):
+        ...
+    # cd back to old path even exception occurs
+
+
+SePEP 0343 <http://www.python.org/dev/peps/pep-0343>`_ - The "with" statement
+
+
+Instance and subclass checks
+
+================= ==========
+Method            Operator
+================= ==========
+__instancecheck__ isinstance
+__subclasscheck__ issubclass
+================= ==========
+
+See `PEP 3119 <PEP 3119 - Introducing Abstract Base Classes>`_ - Introducing Abstract Base Classes
+
+
+Misc.
+
+======== ======== ==================================================================================
+Method   Operator Comments
+======== ======== ==================================================================================
+__hash__ hash     members of hashable collections including set, forzenset, dict.
+__bool__ bool     if a class defines neither __bool__ and __len__, all its instances considered true
+======== ======== ==================================================================================
+
+Customize attribute access
+--------------------------
+
+__getattr__
+__getattribute__
+__setattr__
+__delattr__
+__dir__
+__get__
+__set__
+__delete__
+__slots__
+
+
+Customize class creation
+------------------------
+
+__new__
+__init__
+__del__
+__prepare__
+__class__
+
+See `PEP 3115 <http://www.python.org/dev/peps/pep-3115>`_ - Metaclasses in Python 3000
+  Introduced the __prepare__ namespace hook
+See `PEP 3135 <http://www.python.org/dev/peps/pep-3135>`_ - New super
+  Describes the implicit __class__ closure reference
 
 
 See `Special method names <https://docs.python.org/3.4/reference/datamodel.html#special-method-names>`_
