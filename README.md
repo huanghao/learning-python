@@ -12,13 +12,6 @@ Or run this command to get local document.
 Content
 -------
 
-7. Exceptions
-  - try/expect/else/finally
-  - raise Exc/raise
-  - assert
-  - with/as, contextmanager
-  - Built-in exceptions
-  - traceback
 8. Standard libs
   - sys
   - os
