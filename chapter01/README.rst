@@ -27,7 +27,7 @@ Which Python should I choose ?
 - Version: 2.7 or 3.4
 - `Alternate Implementations`_: cpython, pypy, Jython, IronPython, stackless
 
-Notes: this tutorial restrict on 2.7 and latest 3.x
+Notes: this tutorial restrict on 2.7 and latest 3.x of cpython
 
 Features
 --------

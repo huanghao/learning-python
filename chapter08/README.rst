@@ -352,3 +352,114 @@ Just for somewhat debugging and testing purposes.
   if __debug__:
     if not test:
       raise AssertError(msg)
+
+
+Built-in exceptions
+-------------------
+
+In Python, all exceptions must be instances of a class that derives from *BaseException*.
+
+Programmers are encouraged to derive new exceptions from the *Exception* class or one of its subclass, and not from *BaseException*.
+
+::
+
+  BaseException
+   +-- SystemExit
+   +-- KeyboardInterrupt
+   +-- GeneratorExit
+   +-- Exception
+        +-- StopIteration
+        +-- ArithmeticError
+        |    +-- FloatingPointError
+        |    +-- OverflowError
+        |    +-- ZeroDivisionError
+        +-- AssertionError
+        +-- AttributeError
+        +-- BufferError
+        +-- EOFError
+        +-- ImportError
+        +-- LookupError
+        |    +-- IndexError
+        |    +-- KeyError
+        +-- MemoryError
+        +-- NameError
+        |    +-- UnboundLocalError
+        +-- OSError
+        |    +-- BlockingIOError
+        |    +-- ChildProcessError
+        |    +-- ConnectionError
+        |    |    +-- BrokenPipeError
+        |    |    +-- ConnectionAbortedError
+        |    |    +-- ConnectionRefusedError
+        |    |    +-- ConnectionResetError
+        |    +-- FileExistsError
+        |    +-- FileNotFoundError
+        |    +-- InterruptedError
+        |    +-- IsADirectoryError
+        |    +-- NotADirectoryError
+        |    +-- PermissionError
+        |    +-- ProcessLookupError
+        |    +-- TimeoutError
+        +-- ReferenceError
+        +-- RuntimeError
+        |    +-- NotImplementedError
+        +-- SyntaxError
+        |    +-- IndentationError
+        |         +-- TabError
+        +-- SystemError
+        +-- TypeError
+        +-- ValueError
+        |    +-- UnicodeError
+        |         +-- UnicodeDecodeError
+        |         +-- UnicodeEncodeError
+        |         +-- UnicodeTranslateError
+        +-- Warning
+             +-- DeprecationWarning
+             +-- PendingDeprecationWarning
+             +-- RuntimeWarning
+             +-- SyntaxWarning
+             +-- UserWarning
+             +-- FutureWarning
+             +-- ImportWarning
+             +-- UnicodeWarning
+             +-- BytesWarning
+             +-- ResourceWarning
+
+BaseException
+  The base class for all built-in exceptions.
+
+  args: The tuple of arguments given to the exception constructor. If str() is called on an instance of this class, the representation of the argument(s) to the instance are returned, or the empty string when there were no arguments.
+
+  with_traceback(tb)::
+
+    try:
+        ...
+    except SomeException:
+        tb = sys.exc_info()[2]
+        raise OtherException(...).with_traceback(tb)
+
+Exception
+  All built-in, non-system-exiting exceptions are derived from this class. All user-defined exceptions should also be derived from this class.
+
+SystemExit
+  This exception is raised by the sys.exit() function. When it is not handled, the Python interpreter exits; no stack traceback is printed. If the associated value is an integer, it specifies the system exit status (passed to C’s exit() function); if it is None, the exit status is zero; if it has another type (such as a string), the object’s value is printed and the exit status is one.
+
+::
+
+  >>> try:
+  ...   sys.exit(5)
+  ... except:
+  ...   print(sys.exc_info())
+  ...   print("system didn't exit")
+  ...
+  (<class 'SystemExit'>, SystemExit(5,), <traceback object at 0x103d67648>)
+  system didn't exit
+
+KeyboardInterrupt
+  Raised when the user hits the interrupt key (normally Control-C or Delete). During execution, a check for interrupts is made regularly. The exception inherits from BaseException so as to not be accidentally caught by code that catches Exception and thus prevent the interpreter from exiting.
+
+GeneratorExit
+  Raised when a generator‘s close() method is called. It directly inherits from BaseException instead of Exception since it is technically not an error.
+
+
+See `Built-in Exceptions <https://docs.python.org/3.4/library/exceptions.html>`_
