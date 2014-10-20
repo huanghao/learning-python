@@ -7,3 +7,283 @@ Exceptions
 - with/as, contextmanager
 - Built-in exceptions
 - traceback
+
+Basics
+------
+
+Default exception handler::
+
+  >>> def fetcher(obj, index):
+  ...   return obj[index]
+  ...
+  >>> x = 'spam'
+  >>> fetcher(x, 3)
+  m
+
+  >>> fetcher(x, 4)
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+    File "<stdin>", line 2, in fetcher
+  IndexError: string index out of range
+
+Catching exception::
+
+  >>> try:
+  ...   fetcher(x, 4)
+  ... except IndexError:
+  ...   print('got exception')
+  ... print('continue')
+  ...
+  got exception
+  continue
+
+Raising exceptions::
+
+  >>> raise IndexError('cross the line')
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  IndexError: cross the line
+
+  >>> assert False, 'Nobody like it'
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  AssertionError: Nobody like it
+
+User-defined exceptions::
+
+  >>> class AlreadyGotOne(Exception): pass
+  ...
+  >>> def grail():
+  ...   raise AlreadyGotOne()
+  ...
+  >>> try:
+  ...   grail()
+  ... except AlreadyGotOne:
+  ...   print('got exception')
+  ...
+  got exception
+
+Termination actions::
+
+  >>> try:
+  ...   fetcher(x, 3)
+  ... finally:
+  ...   print('after fetch')
+  ...
+  'm'
+  after fetch
+
+  >>> def after():
+  ...   try:
+  ...     fetcher(x, 4)
+  ...   finally:
+  ...     print('after fetch')
+  ...   print('after try?')
+  ...
+  >>> after()
+  after fetch
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+    File "<stdin>", line 3, in after
+    File "<stdin>", line 2, in fetcher
+  IndexError: string index out of range
+
+Context manager::
+
+  with open('email.txt', 'w') as file:
+    file.write('junk\n')
+
+  # is equivalent to
+
+  file = open('email.txt', 'w')
+  try:
+    file.write('junk\n')
+  finally:
+    file.close()
+
+  # If we don't use context manager or finally clause
+
+  file = open('email.txt', 'w')
+  file.write('junk\n')    # if exception happens here, file won't be closed
+  file.close()
+
+Exception coding detail
+-----------------------
+
+try/except/else/finally::
+
+  try:
+    some_actions()
+  excpet Exception1:
+    handler1
+  except Exception2:
+    handler2
+  ...
+  except:
+    handler all exceptions
+  else:
+    no_exception_occurs
+  finally:
+    termination
+
+The raise statement
+
+To trigger exceptions explicitly, you can use the following three forms of raise statements:
+
+- raise instance
+
+  It's the most common way to raise an instance of some exception.
+
+- raise class
+
+  If we pass a class instead, python calls constructor without arguments, to create an instance to raise.
+
+- raise
+
+  This form reraises the most recently raised exception. It's commonly used in exception handlers to
+  propagate exceptions that have been caught.
+
+::
+
+  >>> try:
+        ..   1/0
+  ... except ZeroDivisionError:
+  ...   print('oops')
+  ...   raise
+  ...
+  oops
+  Traceback (most recent call last):
+    File "<stdin>", line 2, in <module>
+  ZeroDivisionError: division by zero
+
+Scopes and try except variables
+
+::
+
+  >>> try:     # py3
+  ...   1/0
+  ... except Exception as x:
+  ...   print(x)
+  ...
+  division by zero
+  >>> x
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  NameError: name 'x' is not defined
+
+::
+
+  >>> try:     # py2
+  ...   1/0
+  ... except Exception as x:
+  ...   print x
+  ...
+  integer division or modulo by zero
+  >>> x
+  ZeroDivisionError('integer division or modulo by zero',)
+
+  >>> try:     # the old py2 way to assign exception variable
+  ...   1/0    # which already abandoned in py3
+  ... except Exception, x:
+  ...   print x
+  ...
+  integer division or modulo by zero
+
+
+Catching multiple exceptions in single except::
+
+  >>> import random
+  >>> def random_error():
+  ...   if random.random() < 0.5:
+  ...     1/0
+  ...   else:
+  ...     [][1]
+  ...
+  >>> random_error()
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+    File "<stdin>", line 5, in random_error
+  IndexError: list index out of range
+  >>> random_error()
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+    File "<stdin>", line 3, in random_error
+  ZeroDivisionError: integer division or modulo by zero
+
+  >>> def run():
+  ...   try:
+  ...     random_error()
+  ...   except (IndexError, ZeroDivisionError):
+  ...     print('got')
+  ...
+  >>> run()
+  got
+
+Careful in py2: the () is essential::
+
+  >>> try:
+  ...   random_error()
+  ... except IndexError, ZeroDivisionError:   # valid syntax in py2
+  ...   print 'got'
+  ...
+  got
+  >>> ZeroDivisionError
+  IndexError('list index out of range',)
+
+The 3.x exception chaining: raise from
+
+Exceptions can sometimes be triggered in resonpse to other exceptions - both delibrately and by new program errors.
+To support full disclosure in such cases, 3.x support a new raise from syntax:
+
+  raise newexception from otherexception
+
+- If the form clause is used explicitly, the other exception will be attached to __cause__ attribute
+  of the new exception being raised. If the raised exception is not caught, python prints out the
+  whole exception chain.
+
+::
+
+  >>> try:
+  ...   try:
+  ...     1/0
+  ...   except Exception as e:
+  ...     raise TypeError('Bad') from e
+  ... except Exception as e:
+  ...   raise ValueError('Worse') from e
+  ...
+  Traceback (most recent call last):
+    File "<stdin>", line 3, in <module>
+  ZeroDivisionError: division by zero
+
+  The above exception was the direct cause of the following exception:
+
+  Traceback (most recent call last):
+    File "<stdin>", line 5, in <module>
+  TypeError: Bad
+
+  The above exception was the direct cause of the following exception:
+
+  Traceback (most recent call last):
+    File "<stdin>", line 7, in <module>
+  ValueError: Worse
+
+- When an exception is raised implicitly by a program error inside an exception handler, a
+  similar procedure is followed automatically: the previous exception is attached to the new
+  exception's __context__ attribute and is again displayed if uncaught.
+
+::
+
+  >>> try:
+  ...   1/0
+  ... except:
+  ...   badname
+  ...
+  Traceback (most recent call last):
+    File "<stdin>", line 2, in <module>
+  ZeroDivisionError: division by zero
+
+  During handling of the above exception, another exception occurred:
+
+  Traceback (most recent call last):
+    File "<stdin>", line 4, in <module>
+  NameError: name 'badname' is not defined
