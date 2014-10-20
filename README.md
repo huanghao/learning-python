@@ -12,13 +12,6 @@ Or run this command to get local document.
 Content
 -------
 
-8. Standard libs
-  - sys
-  - os
-  - os.path
-  - Advanced data structures: collections, heapq
-  - virtualenv, venv
-  - argparse
 9. Auto-testing
   - doctest
   - unittest
