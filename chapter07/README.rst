@@ -303,16 +303,15 @@ __bool__ bool     if a class defines neither __bool__ and __len__, all its insta
 Customize attribute access
 --------------------------
 
-__getattr__
-__getattribute__
-__setattr__
-__delattr__
-__dir__
-__get__
-__set__
-__delete__
-__slots__
-
+================ ==========================
+Method           Operator
+================ ==========================
+__getattr__      o.attr, getattr(o, 'attr')
+__getattribute__ o.attr, getattr(o, 'attr')
+__setattr__      o.attr = val
+__delattr__      del o.attr
+__dir__          dir()
+================ ==========================
 
 ::
 
@@ -350,9 +349,15 @@ Comparison between __getattr__ and __getattribute__
 
 Descriptor
 
+- __get__
+- __set__
+- __delete__
+
 See `Descriptor HowTo Guide <https://docs.python.org/3.4/howto/descriptor.html#descriptor-howto-guide>`_
 
 Slots
+
+__slots__
 
 See `Saving 9GB of ram with Python's __slots__ <http://tech.oyster.com/save-ram-with-python-slots/>`_
 
@@ -360,10 +365,17 @@ See `Saving 9GB of ram with Python's __slots__ <http://tech.oyster.com/save-ram-
 Customize class creation
 ------------------------
 
-__new__
-__init__
-__del__
+#TODO
+
+=========== ===================
+Method      Operator
+=========== ===================
+__new__     C() before __init__
+__init__    C()
+__del__     del o (gc)
 __prepare__
+=========== ===================
+
 __class__
 
 See `PEP 3115 <http://www.python.org/dev/peps/pep-3115>`_ - Metaclasses in Python 3000
