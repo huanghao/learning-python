@@ -27,6 +27,8 @@ Which Python should I choose ?
 - Version: 2.7 or 3.4
 - `Alternate Implementations`_: cpython, pypy, Jython, IronPython, stackless
 
+Notes: this tutorial restrict on 2.7 and latest 3.x
+
 Features
 --------
 
@@ -129,3 +131,4 @@ Where you can find those standard libs ?
   /usr/lib/python3.4
 
 .. _Alternate Implementations: https://docs.python.org/3/reference/introduction.html#alternate-implementations
+

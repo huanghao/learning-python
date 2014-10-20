@@ -90,22 +90,23 @@ Termination actions::
 
 Context manager::
 
-  with open('email.txt', 'w') as file:
-    file.write('junk\n')
+  with threading.Lock() as lock:
+    do_something()
 
   # is equivalent to
 
-  file = open('email.txt', 'w')
+  lock = threading.Lock()
+  lock.acquire()
   try:
-    file.write('junk\n')
+    do_something()
   finally:
-    file.close()
+    lock.release()
 
   # If we don't use context manager or finally clause
 
-  file = open('email.txt', 'w')
-  file.write('junk\n')    # if exception happens here, file won't be closed
-  file.close()
+  lock.acquire()
+  some_something()    # if exception happens here
+  lock.release()      # then this line won't be called
 
 Exception coding detail
 -----------------------
@@ -188,6 +189,8 @@ Scopes and try except variables
   ...   print x
   ...
   integer division or modulo by zero
+
+See `PEP 3110 <http://www.python.org/dev/peps/pep-3110>`_: Catching exceptions.
 
 
 Catching multiple exceptions in single except::
@@ -287,3 +290,65 @@ To support full disclosure in such cases, 3.x support a new raise from syntax:
   Traceback (most recent call last):
     File "<stdin>", line 4, in <module>
   NameError: name 'badname' is not defined
+
+See `PEP 3134 <http://www.python.org/dev/peps/pep-3134>`_: Exception chaining.
+
+Suppressing exception context
+
+3.3 introduces a new syntax to disable display of chained exception context.
+No debugging capability is lost, as the original exception context remains available if needed.
+
+::
+
+  >>> try:
+  ...   1/0
+  ... except ZeroDivisionError:
+  ...   raise ValueError("zero can't be used as demoninator")
+  ...
+  Traceback (most recent call last):
+    File "<stdin>", line 2, in <module>
+  ZeroDivisionError: division by zero
+
+  During handling of the above exception, another exception occurred:
+
+  Traceback (most recent call last):
+    File "<stdin>", line 4, in <module>
+  ValueError: zero can't be used as demoninator
+
+::
+
+  >>> def test():
+  ...   try:
+  ...     1/0
+  ...   except ZeroDivisionError:
+  ...     raise ValueError("zero can't be used as demoinator") from None
+  ...
+  >>> test()
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+    File "<stdin>", line 5, in test
+  ValueError: zero can't be used as demoinator
+
+  >>> try:
+  ...   test()
+  ... except Exception as e:
+  ...   print(e.__context__)
+  ...
+  division by zero
+
+See `PEP 409 <http://www.python.org/dev/peps/pep-0409>`_: Suppressing exception context
+
+
+The assert statement
+
+Just for somewhat debugging and testing purposes.
+
+  assert test, msg    # msg is optional
+
+=>
+
+::
+
+  if __debug__:
+    if not test:
+      raise AssertError(msg)
