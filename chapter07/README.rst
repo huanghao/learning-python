@@ -127,6 +127,11 @@ Special class attributes::
 
 Class methods and static methods
 
+Properties #TODO
+
+
+__dict__ and __weakref__ #TODO
+
 Operator overloadding
 ---------------------
 
@@ -271,7 +276,7 @@ __exit__  with
     # cd back to old path even exception occurs
 
 
-SePEP 0343 <http://www.python.org/dev/peps/pep-0343>`_ - The "with" statement
+See `PEP 0343 <http://www.python.org/dev/peps/pep-0343>`_ - The "with" statement
 
 
 Instance and subclass checks
@@ -309,6 +314,49 @@ __delete__
 __slots__
 
 
+::
+
+  class Proxy:
+
+    def __init__(self, wrapped):
+      self.__dict__['_wrapped'] = wrapped
+
+    def __getattr__(self, name):
+      return getattr(self._wrapped, name)
+
+    def __setattr__(self, name, value):
+      setattr(self._wrapped, name, value)
+
+::
+
+  >>> d = {}
+  >>> p = Proxy(d)
+  >>> p['a'] = 1
+  >>> p.b = 2
+  >>> p.keys()
+  dict_keys(['a'])
+  >>> p.__dict__
+  {'b': 2, '_wrapped': {'a': 1}}
+
+Comparison between __getattr__ and __getattribute__
+
+- Both methods should return the (computed) attribute value or raise an AttributeError exception
+- __getattr__ is called when an attribute lookup has not found; however __getattribute__ is called
+  unconditionally.
+- If AttributeError was raised in __getattribute__ then __getattr__ will be called.
+- In order to avoid infinite recursion in __getattribute__, its implementation should always call
+  object.__getattribute__(self, name) to get attributes it needs.
+- Similarly, always call object.__setattr__(self, name, value) in __setattr__.
+
+Descriptor
+
+See `Descriptor HowTo Guide <https://docs.python.org/3.4/howto/descriptor.html#descriptor-howto-guide>`_
+
+Slots
+
+See `Saving 9GB of ram with Python's __slots__ <http://tech.oyster.com/save-ram-with-python-slots/>`_
+
+
 Customize class creation
 ------------------------
 
@@ -324,4 +372,4 @@ See `PEP 3135 <http://www.python.org/dev/peps/pep-3135>`_ - New super
   Describes the implicit __class__ closure reference
 
 
-See `Special method names <https://docs.python.org/3.4/reference/datamodel.html#special-method-names>`_
+See `Special method names <https://docs.python.org/3.4/reference/datamodel.html#special-method-names>`_ for the full list of special method names
