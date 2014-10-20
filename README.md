@@ -1,9 +1,9 @@
 learning-python
 ===============
 
-[![Documentation Status](https://readthedocs.org/projects/learning-python/badge/?version=master)](https://readthedocs.org/projects/learning-python/?badge=master)
+[![Documentation Status](https://readthedocs.org/projects/learning-python/badge/?version=latest)](https://readthedocs.org/projects/learning-python/?badge=latest)
                 
-See http://learning-python.readthedocs.org/en/master/
+See http://learning-python.readthedocs.org/en/latest/
 
 Or run this command to get local document.
 
@@ -12,6 +12,17 @@ Or run this command to get local document.
 Content
 -------
 
+12. Text processing
+  - string types, std string lib
+  - Unicode, py3
+  - re
+  - XML & JSON & YAML, lxml, untangle, xmltodict, json, pyyaml
+  - PyQuery & BeautifulSoup
+  - Templates, Jinja2, Mako
+  - Logging
+  - Lex & Yacc, ply
+  - shlex
+  - safe evaluate, abstruct syntax tree(AST)
 9. Auto-testing
   - doctest
   - unittest
@@ -38,17 +49,6 @@ Content
   - Monitoring: Psutil, Nagios, Ganglia
   - CI: Travis-CI, Jenkins/buildbot
   - Agile & DevOp
-12. Text processing
-  - string types, std string lib
-  - Unicode, py3
-  - re
-  - XML & JSON & YAML, lxml, untangle, xmltodict, json, pyyaml
-  - PyQuery & BeautifulSoup
-  - Templates, Jinja2, Mako
-  - Logging
-  - Lex & Yacc, ply
-  - shlex
-  - safe evaluate, abstruct syntax tree(AST)
 13. Multi-processing & Multi-threading
   - threading
   - multiprocessing
@@ -109,4 +109,3 @@ Content
   - PySolFC
   - Django, TruboGears, web2py, Pylons, Zope, WebWare
   - IronPython, pyjs(a.k.a pyjamas)
-
