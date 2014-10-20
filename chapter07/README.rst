@@ -1,39 +1,7 @@
 Classes and OOP
 ===============
 
-
-OOP(Object Oriented Programming) concepts
------------------------------------------
-
-- Classes
-
-  - Inner classes
-
-- Instances
-- Methods
-
-  - Instance methods
-  - Static methods
-  - Class methods
-  - Operator overloading
-
-- Attributes
-
-  - Instance attributes
-  - Class attributes
-  - Properties
-  - Special Attributes
-
-- Inheritance
-
-  - Super
-
-- Advanced topics
-
-  - Extending builtin types
-  - Classic and New styles
-  - Multi-inheritance (MRO)
-  - Metaclass
+Everything in python are objects, even classes.
 
 Basic usage
 -----------
@@ -129,6 +97,7 @@ Class methods and static methods
 
 Properties #TODO
 
+Class decorator # TODO
 
 __dict__ and __weakref__ #TODO
 
@@ -365,8 +334,6 @@ See `Saving 9GB of ram with Python's __slots__ <http://tech.oyster.com/save-ram-
 Customize class creation
 ------------------------
 
-#TODO
-
 =========== ===================
 Method      Operator
 =========== ===================
@@ -376,7 +343,131 @@ __del__     del o (gc)
 __prepare__
 =========== ===================
 
-__class__
+__new__
+  Called to create a new instance of class cls.
+
+- If __new__() returns an instance of cls, then the new instance's __init__() method will be invoked like __init__(self, ...), where self is the new instance and the remaining arguments are the same as were passed to __new__().
+- If __new__() does not return an instance of cls, then the new instance's __init__() method will not be invoked.
+
+__new__() is intended mainly to allow subclasses of immutable types (like int, str, or tuple) to customize instance creation. It's also commonly overridden in custom metaclasses in order to customize class creation.
+
+::
+
+  class LoginForm(forms.Form):
+
+    email = forms.EmailField()
+    password = forms.PasswordField()
+
+  form = LoginForm(request.POST)    # {'username': 'abcd', 'password': 'abcd'}
+  if not form.is_valid()
+    return HttpResponse(form.error_as_string())
+
+::
+
+  class Form(six.with_metaclass(DeclarativeFieldsMetaclass, BaseForm)):
+    ...
+
+  class DeclarativeFieldsMetaclass:
+
+    def __new__(mcs, name, bases, attrs):
+      current_fields = []
+        for key, value in list(attrs.items()):
+          if isinstance(value, Field):
+            current_fields.append((key, value))
+            attrs.pop(key)
+            attrs['declared_fields'] = OrderedDict(current_fields)
+      ...
+      new_class = (super(DeclarativeFieldsMetaclass, mcs)
+        .__new__(mcs, name, bases, attrs))
+      ...
+
+      new_class.base_fields = declared_fields
+      new_class.declared_fields = declared_fields
+
+      return new_class
+
+  class BaseForm(object):
+    def __init__(self, ...):
+      ...
+      self.fields = copy.deepcopy(self.base_fields)
+
+    def __getitem__(self, name):
+      "Returns a BoundField with the given name."
+      try:
+        field = self.fields[name]
+      except KeyError:
+        raise KeyError(
+          "Key %r not found in '%s'" % (name, self.__class__.__name__))
+      return BoundField(self, field, name)
+
+By default, classes are construted using `type(name, bases, dict) <https://docs.python.org/3.4/library/functions.html#type>`_.
+In the following exmaple, both MyClass and MySubclass are instances of Meta::
+
+  class Meta(type):
+    pass
+
+  class MyClass(metaclass=Meta):
+    pass
+
+  class MySubclass(MyClass):
+    pass
+
+When a class definition is executed, the following steps occur:
+
+1. the appropriate metaclass is determined
+2. the class namespace is prepared
+3. the class body is executed
+4. the class object is created
+
+Determining the appropriate metaclass
+
+- if no bases and no explicit metaclass are given, then type() is used
+- if an explicit metaclass is given and it is not an instance of type(), then it is used directly as the metaclass
+- if an instance of type() is given as the explicit metaclass, or bases are defined, then the most derived metaclass is used
+
+Preparing the class namespace
+
+- namespace = metaclass.__prepare__(name, bases, \*\*kwds)
+- otherwise, an empty dict() instance
+
+kwds come from the class definition.
+
+Executing the class body
+
+  exec(body, globals(), namespace)
+
+Creating the class object
+
+Once the class namespace has been populated by executing the class body, the class object is created by calling
+
+  metaclass(name, bases, namespace, \*\*kwds)
+
+After the class object is created, it is passed to the class decorators included in the class definition (if any)
+and the resulting object is bound in the local namespace as the defined class.
+
+::
+
+  class OrderedClass(type):
+
+       @classmethod
+       def __prepare__(metacls, name, bases, **kwds):
+          return collections.OrderedDict()
+
+       def __new__(cls, name, bases, namespace, **kwds):
+          result = type.__new__(cls, name, bases, dict(namespace))
+          result.members = tuple(namespace)
+          return result
+
+  class A(metaclass=OrderedClass):
+      def one(self): pass
+      def two(self): pass
+      def three(self): pass
+      def four(self): pass
+
+::
+
+  >>> A.members
+  ('__module__', 'one', 'two', 'three', 'four')
 
 See `PEP 3115 <http://www.python.org/dev/peps/pep-3115>`_ - Metaclasses in Python 3000
   Introduced the __prepare__ namespace hook
@@ -385,3 +476,22 @@ See `PEP 3135 <http://www.python.org/dev/peps/pep-3135>`_ - New super
 
 
 See `Special method names <https://docs.python.org/3.4/reference/datamodel.html#special-method-names>`_ for the full list of special method names
+
+
+Advanced topics
+---------------
+
+The "New style" class model
+  From 2.2, python introduced a new flavor of classes, known as new-style classes. classes following the original and traditional model became known as classic classes. In 3.x only the new style remained.
+
+For 2.x, classes must explicitly inherit from object to be considered "new style", otherwise they are "classic"::
+
+  class Foo:          # classic
+    pass
+
+  class Bar(object):  # new style
+    pass
+
+See `Old and New classes <https://docs.python.org/3/whatsnew/2.2.html#old-and-new-classes>`_
+
+MRO and super #TODO
