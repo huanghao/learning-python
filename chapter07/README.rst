@@ -1,7 +1,27 @@
 Classes and OOP
 ===============
 
-Everything in python are objects, even classes.
+Everything in python are objects, even classes and codes.
+
+Object identity
+
+Every object has an identify, a type and a value. An object's identify never changes once it
+has been created. You may think of it as the object's address in memory. The *is* operator
+compares the identity of two objects. The *id()* functions returns an integer representing
+its identity.
+
+CPython implementation detail: For CPython, id(x) is the memory address where x is stored.
+
+An object's type determines the operators that the object supports and also defines the possible
+values for objects of that type. The *type()* function returns an object's type (which is an
+object itself).
+
+The value of some objects can change. Objects whose value can change are said to be mutable;
+objects whose value is unchangeable once they are created are called immutable.
+
+Objects are never explicitly destroyed; however, when they become unreachable they may be
+garbage-collected.
+
 
 Basic usage
 -----------
@@ -95,11 +115,68 @@ Special class attributes::
 
 Class methods and static methods
 
-Properties #TODO
+Properties::
 
-Class decorator # TODO
+  class Person:
+    def __init__(self, name):
+      self._name = name
 
-__dict__ and __weakref__ #TODO
+    def getName(self):
+      print('fetch...')
+      return self._name
+
+    def setName(self, value):
+      print('change...')
+      self._name = value
+
+    def delName(self):
+      print('remove...')
+      del self._name
+
+    name = property(getName, setName, delName, "name property docs")
+
+  bob = Person('Bob Smith')
+  print(bob.name)             # getName
+  bob.name = 'Robert Smith'   # setName
+  print(bob.name)
+
+Class decorator
+  Similar as function decorator. It's a callable object which accepts a class and return a class.
+
+
+Special attributes
+------------------
+
+object.__dict__
+  A dictionary or other mapping object used to store an object’s (writable) attributes.
+
+instance.__class__
+  The class to which a class instance belongs.
+
+class.__bases__
+  The tuple of base classes of a class object.
+
+class.__name__
+  The name of the class or type.
+
+class.__qualname__
+  The qualified name of the class or type.
+
+  New in version 3.3.
+
+  See `PEP 3155 <http://legacy.python.org/dev/peps/pep-3155/>`_ - Qualified name for classes and functions
+
+class.__mro__
+  This attribute is a tuple of classes that are considered when looking for base classes during method resolution.
+
+class.mro()
+  This method can be overridden by a metaclass to customize the method resolution order for its instances. It is called at class instantiation, and its result is stored in __mro__.
+
+class.__subclasses__()
+  Each class keeps a list of weak references to its immediate subclasses. This method returns a list of all those references still alive. Example::
+
+    >>> int.__subclasses__()
+    [<class 'bool'>]
 
 Operator overloadding
 ---------------------

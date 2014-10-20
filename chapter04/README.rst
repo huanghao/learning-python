@@ -312,12 +312,6 @@ Import
   import numpy as np
   from pyquery import PyQuery as pq
 
-Future #TODO
-------------
-
-`PEP 236 <http://legacy.python.org/dev/peps/pep-0236/>`_ - Back to the __future__
-
-
 Global, local and nonlocal
 --------------------------
 
