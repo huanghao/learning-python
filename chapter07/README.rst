@@ -334,7 +334,7 @@ __instancecheck__ isinstance
 __subclasscheck__ issubclass
 ================= ==========
 
-See `PEP 3119 <PEP 3119 - Introducing Abstract Base Classes>`_ - Introducing Abstract Base Classes
+See `PEP 3119 <http://www.python.org/dev/peps/pep-3119>`_ - Introducing Abstract Base Classes
 
 
 Misc.

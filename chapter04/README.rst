@@ -100,7 +100,7 @@ Reserved classes of identifiers
   Class-private names.
 
 Literals
-  `string <string_and_bytes_literal>`_,
+  `string <string_and_bytes_literal_>`_,
   `bytes <string_and_bytes_literal_>`_,
   numeric(`interger <integer_literal_>`_,
   `float <float_literal_>`_,
