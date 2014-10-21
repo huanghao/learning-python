@@ -178,9 +178,6 @@ ChainMap     dict-like class for creating a single view of multiple mappings
 Counter      dict subclass for counting hashable objects
 OrderedDict  dict subclass that remembers the order entries were added
 defaultdict  dict subclass that class a factory function to supply missing values
-UserDict     wrapper around dictionary objects for easier dict subclassing
-UserList     wrapper around list objects for easier list subclassing
-UserString   wrapper around string objects for easier string subclassing
 ============ ====================================================================
 
 namedtuple()::
@@ -303,3 +300,65 @@ Del in the tail l.pop()     O(1)  d.pop        O(1)
   av: 0.011482477188110352
 
 See `Time complexity <https://wiki.python.org/moin/TimeComplexity>`_
+
+`Chainmap <https://docs.python.org/3.4/library/collections.html#chainmap-objects>`_
+
+A ChainMap class is provided for quickly linking a number of mappings so they can be treated as a single unit. 
+
+Example of simulating Python’s internal lookup chain::
+
+  import builtins
+  pylookup = ChainMap(locals(), globals(), vars(builtins))
+
+
+`Counter <https://docs.python.org/3.4/library/collections.html#counter-objects>`_
+
+A counter tool is provided to support convenient and rapid tallies. For example::
+
+  >>> from collections import Counter
+  >>> words = ['red', 'blue', 'red', 'green', 'blue', 'blue']
+  >>> cnt = Counter(words)
+  >>> cnt
+  Counter({'blue': 3, 'red': 2, 'green': 1})
+  >>> cnt.most_common(2)
+  [('blue', 3), ('red', 2)]
+
+
+`OrderedDict <https://docs.python.org/3.4/library/collections.html#ordereddict-objects>`_
+
+Ordered dictionaries are just like regular dictionaries but they remember the order that items were inserted.
+When iterating over an ordered dictionary, the items are returned in the order their keys were first added.
+
+::
+
+  >>> # regular unsorted dictionary
+  >>> d = {'banana': 3, 'apple':4, 'pear': 1, 'orange': 2}
+
+  >>> # dictionary sorted by key
+  >>> OrderedDict(sorted(d.items(), key=lambda t: t[0]))
+  OrderedDict([('apple', 4), ('banana', 3), ('orange', 2), ('pear', 1)])
+
+  >>> assert list(o.keys()) == sorted(d.keys())
+
+`defaultdict <https://docs.python.org/3.4/library/collections.html#defaultdict-objects>`_
+
+Dictionary with default value::
+
+  >>> s = [('yellow', 1), ('blue', 2), ('yellow', 3), ('blue', 4), ('red', 1)]
+  >>> d = defaultdict(list)
+  >>> for k, v in s:
+  ...     d[k].append(v)
+  ...
+  >>> list(d.items())
+  [('blue', [2, 4]), ('red', [1]), ('yellow', [1, 3])]
+
+This technique is simpler and faster than an equivalent technique using dict.setdefault()::
+
+  >>> d = {}
+  >>> for k, v in s:
+  ...     d.setdefault(k, []).append(v)
+  ...
+  >>> list(d.items())
+  [('blue', [2, 4]), ('red', [1]), ('yellow', [1, 3])]
+
+
