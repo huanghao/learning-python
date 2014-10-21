@@ -20,6 +20,7 @@ Contents:
   chapter07/README.rst
   chapter08/README.rst
   chapter09/README.rst
+  chapter10/README.rst
   Appendix/resources.rst
 
 

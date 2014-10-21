@@ -31,12 +31,6 @@ Content
   - Tox
   - Selenium, WebDriver, PhantomJS
   - Coverage, python-coverage, coversall.io
-10. Benchmarking
-  - Gocha
-  - hostspot
-  - cProfile
-  - timeit
-  - pystones
 11. Engineering
   - Development: ipython, Flake8(pep8,pyflakes,mcCabe), pylint, virtualenv(wrapper), autoenv, landscape.io
   - Document: docstring, pydoc, Sphinx, readthedocs
