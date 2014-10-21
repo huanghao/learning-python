@@ -400,3 +400,16 @@ This module provides an implementation of the min heap queue algorithm, also kno
       bisect.insort(l, r)
       print('{:=2} {:=2} {}'.format(r, position, l))
 
+`array <https://docs.python.org/3.4/library/array.html>`_ — Efficient arrays of numeric values
+
+
+array.array is useful when you need a homogeneous C array of data for reasons other than doing math.
+
+::
+
+  array('l')
+  array('u', 'hello \u2641')
+  array('l', [1, 2, 3, 4, 5])
+  array('d', [1.0, 2.0, 3.14])
+
+See also: `bytearray vs array <http://stackoverflow.com/questions/11882988/python-bytearray-vs-array>`_
