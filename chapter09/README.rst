@@ -494,3 +494,37 @@ weakref.proxy
       ...
 
 weakref.WeakValueDictionary #TODO
+
+`types <https://docs.python.org/3.4/library/types.html>`_ - Dynamic type creation and names for built-in types
+--------------------------------------------------------------------------------------------------------------
+
+::
+
+  >>> import types
+  >>> type(lambda : ...) is types.FunctionType
+  True
+
+`copy <https://docs.python.org/3.4/library/copy.html>`_ - Shallow and deep copy operations
+------------------------------------------------------------------------------------------
+
+::
+
+  >>> import copy
+  >>> class Object: pass
+  ...
+  >>> l1 = [1, [2, Object()]]
+  >>> l2 = l1
+  >>> l3 = copy.copy(l1)
+  >>> l4 = copy.deepcopy(l1)
+
+  >>> l3[0] = 3
+  >>> l3[1][0] = 4
+
+  >>> l1
+  [1, [4, <__main__.Object object at 0x107d2a278>]]
+  >>> l2
+  [1, [4, <__main__.Object object at 0x107d2a278>]]
+  >>> l3
+  [3, [4, <__main__.Object object at 0x107d2a278>]]
+  >>> l4
+  [1, [2, <__main__.Object object at 0x107d2a978>]]
