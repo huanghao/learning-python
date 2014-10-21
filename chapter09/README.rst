@@ -167,3 +167,139 @@ Aware::
   >>> t2 = t1.astimezone(finland)
   >>> str(t2), t2.tzname()
   ('2014-10-06 09:00:00+02:00', 'Europe/Helsinki')
+
+`collections <https://docs.python.org/3/library/collections.html>`_ - Container datetypes
+-----------------------------------------------------------------------------------------
+
+============ ====================================================================
+namedtuple() factory function for creating tuple subclasses with named fields
+deque        list-like container with fast appends and pops on either end
+ChainMap     dict-like class for creating a single view of multiple mappings
+Counter      dict subclass for counting hashable objects
+OrderedDict  dict subclass that remembers the order entries were added
+defaultdict  dict subclass that class a factory function to supply missing values
+UserDict     wrapper around dictionary objects for easier dict subclassing
+UserList     wrapper around list objects for easier list subclassing
+UserString   wrapper around string objects for easier string subclassing
+============ ====================================================================
+
+namedtuple()::
+
+  >>> from collections import namedtuple
+  >>> Person = namedtuple('Person', ['name', 'age', 'gender'])
+  >>> bob = Person('Bob', 30, 'male')
+  >>> jane = Person(name='Jane', gender='female', age=29)
+  >>> bob, bob[2]
+  (Persion(name='Bob', age=30, gender='male'), 'male')
+  >>> type(jane), jane.age
+  (<class '__main__.Persion'>, 29)
+
+  >>> bob._asdict()
+  OrderedDict([('name', 'Bob'), ('age', 30), ('gender', 'male')])
+  >>> bob._replace(name='Tom', age=52)
+  Persion(name='Tom', age=52, gender='male')
+
+::
+
+  >>> class Person(namedtuple('Person', ['name', 'age', 'gender'])):
+  ...   __slots__ = ()
+  ...   @property
+  ...   def lastname(self):
+  ...     return self.name.split()[-1]
+  ... 
+  >>> john = Person('John Lennon', 75, 'male')
+  >>> john.lastname
+  'Lennon'
+
+Deque: double-ended queue
+-------------------------
+
+Deques support thread-safe, memory efficient appends and pops from either side
+of the deque with approximately the same O(1) performance in either direction.
+
+=============== =========== ===== ============ =====
+Operation       list        Big O deque        Big O
+=============== =========== ===== ============ =====
+Add in the head l.insert(0) O(n)  d.appendleft O(1)
+Add in the tail l.append()  O(1)  d.append     O(1)
+Del in the head l.pop(0)    O(n)  d.popleft    O(1)
+Del in the tail l.pop()     O(1)  d.pop        O(1)
+=============== =========== ===== ============ =====
+
+::
+
+  def timing(initial, setup, testing, times=3):
+      print('Testing the following code for {} times ...\n{}'.format(times, testing.strip()))
+      namespace = {}
+      exec(initial, namespace)
+
+      av = 0
+      for i in range(times):
+          exec(setup, namespace)
+
+          begin = time.time()
+          exec(testing, namespace)
+          cost = time.time() - begin
+
+          print('{}: {}'.format(i + 1, cost))
+          av += cost
+      print('av: {}\n'.format(av / times))
+
+::
+
+  >>> timing('data = list(range(10**5))', 'l = []', '''
+  ... for i in data:
+  ...   l.insert(0, i)    # O(n)
+  ... ''')
+  Testing the following code for 3 times ...
+  for i in data:
+    l.insert(0, i)
+  1: 3.9300358295440674
+  2: 4.109051704406738
+  3: 4.1024134159088135
+  av: 4.04716698328654
+
+::
+
+  $ python timing.py
+  Testing the following code for 3 times ...
+  for i in data:
+    l.insert(0, i)        # O(N)
+  av: 4.171613295873006
+
+  Testing the following code for 3 times ...
+  for i in data:
+    l.append(i)           # O(1)
+  av: 0.012801011403401693
+
+  Testing the following code for 3 times ...
+  for i in data:
+    d.appendleft(i)       # O(1)
+  av: 0.014629840850830078
+
+  Testing the following code for 3 times ...
+  for i in data:
+    d.append(i)           # O(1)
+  av: 0.014315048853556315
+
+  Testing the following code for 3 times ...
+  for _ in data:
+    l.pop(0)              # O(n)
+  av: 1.6093259652455647
+
+  Testing the following code for 3 times ...
+  for _ in data:
+    l.pop()               # O(1)
+  av: 0.014542102813720703
+
+  Testing the following code for 3 times ...
+  for _ in data:
+    d.popleft()           # O(1)
+  av: 0.011040687561035156
+
+  Testing the following code for 3 times ...
+  for _ in data:
+    d.pop()               # O(1)
+  av: 0.011482477188110352
+
+See `Time complexity <https://wiki.python.org/moin/TimeComplexity>`_
