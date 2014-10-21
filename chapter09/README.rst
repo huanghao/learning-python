@@ -378,3 +378,25 @@ This technique is simpler and faster than an equivalent technique using dict.set
 
 This module provides an implementation of the min heap queue algorithm, also known as the priority queue algorithm.
 
+`bisect <https://docs.python.org/3.4/library/bisect.html>`_ - Array bisection algorithm
+
+::
+
+  import bisect
+  import random
+
+  # Use a constant see to ensure that we see
+  # the same pseudo-random numbers each time
+  # we run the loop.
+  random.seed(1)
+
+  # Generate 20 random numbers and
+  # insert them into a list in sorted
+  # order.
+  l = []
+  for i in range(1, 20):
+      r = random.randint(1, 100)
+      position = bisect.bisect(l, r)
+      bisect.insort(l, r)
+      print('{:=2} {:=2} {}'.format(r, position, l))
+
