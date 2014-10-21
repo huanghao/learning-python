@@ -208,7 +208,7 @@ namedtuple()::
   >>> john.lastname
   'Lennon'
 
-Deque: double-ended queue
+deque: double-ended queue
 -------------------------
 
 Deques support thread-safe, memory efficient appends and pops from either side
@@ -362,7 +362,8 @@ This technique is simpler and faster than an equivalent technique using dict.set
   [('blue', [2, 4]), ('red', [1]), ('yellow', [1, 3])]
 
 
-`heapq <https://docs.python.org/3.4/library/heapq.html>` - Heap queue algorithm
+`heapq <https://docs.python.org/3.4/library/heapq.html>`_ - Heap queue algorithm
+--------------------------------------------------------------------------------
 
 ::
 
@@ -379,6 +380,7 @@ This technique is simpler and faster than an equivalent technique using dict.set
 This module provides an implementation of the min heap queue algorithm, also known as the priority queue algorithm.
 
 `bisect <https://docs.python.org/3.4/library/bisect.html>`_ - Array bisection algorithm
+---------------------------------------------------------------------------------------
 
 ::
 
@@ -400,8 +402,8 @@ This module provides an implementation of the min heap queue algorithm, also kno
       bisect.insort(l, r)
       print('{:=2} {:=2} {}'.format(r, position, l))
 
-`array <https://docs.python.org/3.4/library/array.html>`_ — Efficient arrays of numeric values
-
+`array <https://docs.python.org/3.4/library/array.html>`_ - Efficient arrays of numeric values
+----------------------------------------------------------------------------------------------
 
 array.array is useful when you need a homogeneous C array of data for reasons other than doing math.
 
@@ -413,3 +415,82 @@ array.array is useful when you need a homogeneous C array of data for reasons ot
   array('d', [1.0, 2.0, 3.14])
 
 See also: `bytearray vs array <http://stackoverflow.com/questions/11882988/python-bytearray-vs-array>`_
+
+`weakref <https://docs.python.org/3.4/library/weakref.html>`_ - Weak references
+-------------------------------------------------------------------------------
+
+A weak reference to an object is not enough to keep the object alive: when the only remaining references to a referent are weak references, garbage collection is free to destroy the referent and reuse its memory for something else. However, until the object is actually destroyed the weak reference may return the object even if there are no strong references to it.
+
+A primary use for weak references is to implement caches or mappings holding large objects, where it’s desired that a large object not be kept alive solely because it appears in a cache or mapping.
+
+Not all objects can be weakly referenced; those objects which can include class instances, functions written in Python (but not in C), instance methods, sets, frozensets, some file objects, generators, type objects, sockets, arrays, deques, regular expression pattern objects, and code objects.
+
+Several built-in types such as list and dict do not directly support weak references but can add support through subclassing::
+
+  class Dict(dict):
+      pass
+
+  obj = Dict(red=1, green=2, blue=3)   # this object is weak referenceable
+
+Other built-in types such as tuple and int do not support weak references even when subclassed (This is an implementation detail and may be different across various Python implementations.).
+
+Extension types can easily be made to support weak references;
+see `Weak Reference Support <https://docs.python.org/3.4/extending/newtypes.html#weakref-support>`_.
+
+weakref.ref
+
+::
+
+  import weakref
+
+  class BigObject:
+      def __del__(self):
+          print('Deleting {}'.format(self))
+
+  o = BigObject()
+  r = weakref.ref(o)
+
+  print('obj: {}'.format(o))
+  print('ref: {}'.format(r))
+  print('r(): {}'.format(r()))
+
+  del o
+  print('r(): {}'.format(r()))
+
+::
+
+  obj: <__main__.BigObject instance at 0x1036f43f8>
+  ref: <weakref at 0x1036e5c58; to 'instance' at 0x1036f43f8>
+  r(): <__main__.BigObject instance at 0x1036f43f8>
+  Deleting <__main__.BigObject instance at 0x1036f43f8>
+  r(): None
+
+::
+
+  ...
+  def callback(ref):
+      print('Callback {}'.format(ref))
+  ...
+  r = weakref.ref(o, callback)
+  ...
+
+::
+
+  obj: <__main__.BigObject instance at 0x10237a4d0>
+  ref: <weakref at 0x10236bc58; to 'instance' at 0x10237a4d0>
+  r(): <__main__.BigObject instance at 0x10237a4d0>
+  Callback <weakref at 0x10236bc58; dead>
+  Deleting <__main__.BigObject instance at 0x10237a4d0>
+  r(): None
+
+weakref.proxy
+
+  ::
+
+    p = weakref.proxy(o)
+    try:
+      p.attr
+    except ReferenceError:
+      ...
+
+weakref.WeakValueDictionary #TODO
