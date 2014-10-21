@@ -55,3 +55,8 @@ _build/
 target/
 
 venv/
+
+
+#logfile
+chapter09/log.out
+

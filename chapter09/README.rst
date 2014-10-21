@@ -35,7 +35,7 @@ A tour of std libs
 
 :OS:
   **os**, **io**, **time**, **argparse**, getopt, **logging**, getpass, curses,
-  **platform**, **errno**, **ctypes**
+  **platform**, **errno**, ctypes
 
 :Concurrent:
   threading, multiprocessing, concurrent.futures, subprocess, sched, queue, dummy_threading
@@ -528,3 +528,439 @@ weakref.WeakValueDictionary #TODO
   [3, [4, <__main__.Object object at 0x107d2a278>]]
   >>> l4
   [1, [2, <__main__.Object object at 0x107d2a978>]]
+
+`os.path <https://docs.python.org/3.4/library/os.path.html>`_ - Common pathname manipulations
+---------------------------------------------------------------------------------------------
+
+::
+
+  >>> import os.path
+  >>> os.path.sep, os.path.extsep, os.path.pardir, os.path.curdir
+  ('/', '.', '..', '.')
+
+  >>> os.path.dirname('/one/two/three'), os.path.basename('/one/two/three')
+  ('/one/two', 'three')
+  >>> os.path.join('one', 'two', 'three')
+  'one/two/three'
+  >>> os.path.splitext('/path/file.ext')
+  ('/path/file', '.ext')
+
+  >>> os.path.expanduser('~/file.txt')
+  '/Users/huanghao/file.txt'            # Mac
+
+  >>> os.getcwd()
+  '/tmp'
+  >>> os.path.abspath('file.txt')
+  '/tmp/file.txt'
+  >>> os.path.realpath('file.txt')
+  '/tmp/file.txt'
+
+  >>> os.path.isdir('/tmp'), os.path.isfile('/etc/hosts'), os.path.islink('/var'), os.path.exists('/dev'), os.path.ismount('/dev')
+  (True, True, True, True, True)
+
+`tempfile <https://docs.python.org/3.4/library/tempfile.html>`_ - Generate temporary files and directories
+----------------------------------------------------------------------------------------------------------
+
+::
+
+  >>> import tempfile
+
+  # create a temporary file and write some data to it
+  >>> fp = tempfile.TemporaryFile()
+  >>> fp.write(b'Hello world!')
+  # read data from file
+  >>> fp.seek(0)
+  >>> fp.read()
+  b'Hello world!'
+  # close the file, it will be removed
+  >>> fp.close()
+
+  # create a temporary file using a context manager
+  >>> with tempfile.TemporaryFile() as fp:
+  ...     fp.write(b'Hello world!')
+  ...     fp.seek(0)
+  ...     fp.read()
+  b'Hello world!'
+  >>>
+  # file is now closed and removed
+
+  # create a temporary directory using the context manager
+  >>> with tempfile.TemporaryDirectory() as tmpdirname:
+  ...     print('created temporary directory', tmpdirname)
+  >>>
+  # directory and contents have been removed
+
+`glob <https://docs.python.org/3.4/library/glob.html>`_ - Unix style pathname pattern expansion
+-----------------------------------------------------------------------------------------------
+
+::
+
+  >>> import glob
+  >>> glob.glob('./[0-9].*')
+  ['./1.gif', './2.txt']
+  >>> glob.glob('*.gif')
+  ['1.gif', 'card.gif']
+  >>> glob.glob('?.gif')
+  ['1.gif']
+
+  >>> glob.glob('*.gif')
+  ['card.gif']
+  >>> glob.glob('.c*')
+  ['.card.gif']
+
+
+`shutil <https://docs.python.org/3.4/library/shutil.html>`_ - High-level file operations
+----------------------------------------------------------------------------------------
+
+- copyfileobj
+- copyfile
+- copymode
+- copystat
+- copy
+- copy2: Identical to copy() except that copy2() also attempts to preserve all file metadata.
+- copytree
+- rmtree
+- move
+- disk_usage
+- chown
+- which
+- make_archive
+- unpack_archive
+- get_terminal_size
+
+::
+
+  >>> shutil.disk_usage(os.path.expanduser('~'))
+  usage(total=120473067520, used=51554127872, free=68656795648)
+
+  >>> shutil.get_terminal_size()
+  os.terminal_size(columns=130, lines=34)
+
+  >>> shutil.which('python3')
+  '/usr/local/bin/python3'
+
+  >>> archive_name = os.path.expanduser(os.path.join('~', 'myarchive'))
+  >>> root_dir = os.path.expanduser(os.path.join('~', '.ssh'))
+  >>> shutil.make_archive(archive_name, 'gztar', root_dir)
+  '/Users/tarek/myarchive.tar.gz'
+
+The resulting archive contains::
+
+  $ tar -tzvf /Users/tarek/myarchive.tar.gz
+  drwx------ tarek/staff       0 2010-02-01 16:23:40 ./
+  -rw-r--r-- tarek/staff     609 2008-06-09 13:26:54 ./authorized_keys
+  -rwxr-xr-x tarek/staff      65 2008-06-09 13:26:54 ./config
+  -rwx------ tarek/staff     668 2008-06-09 13:26:54 ./id_dsa
+  -rwxr-xr-x tarek/staff     609 2008-06-09 13:26:54 ./id_dsa.pub
+  -rw------- tarek/staff    1675 2008-06-09 13:26:54 ./id_rsa
+  -rw-r--r-- tarek/staff     397 2008-06-09 13:26:54 ./id_rsa.pub
+  -rw-r--r-- tarek/staff   37192 2010-02-06 18:23:10 ./known_hosts
+
+
+`netrc <https://docs.python.org/3.4/library/netrc.html>`_ - netrc file processing
+---------------------------------------------------------------------------------
+
+::
+  $ cat ~/.netrc
+  default login huanghao password 123456
+  machine company.com login hh password xxx
+
+::
+
+  >>> import netrc
+  >>> import os
+  >>> rc = netrc.netrc(os.path.expanduser('~/.netrc'))
+
+  >>> rc.hosts
+  {'default': ('huanghao', None, '123456'), 'company.com': ('hh', None, 'xxx')}
+
+  >>> rc.authenticators('company.com')
+  ('hh', None, 'xxx')
+
+  >>> rc.authenticators('home.me')
+  ('huanghao', None, '123456')
+
+See also `Manual netrc <http://linux.about.com/library/cmd/blcmdl5_netrc.htm>`_
+
+
+`hashlib <https://docs.python.org/3.4/library/hashlib.html>`_ - Secure hashes and message digests
+-------------------------------------------------------------------------------------------------
+
+::
+
+  >>> import hashlib
+  >>> m = hashlib.md5()
+  >>> m.update(b"Nobody inspects")
+  >>> m.update(b" the spammish repetition")
+  >>> m.digest()
+  b'\xbbd\x9c\x83\xdd\x1e\xa5\xc9\xd9\xde\xc9\xa1\x8d\xf0\xff\xe9'
+  >>> m.digest_size
+  16
+  >>> m.block_size
+  64
+
+  >>> hashlib.sha224(b"Nobody inspects the spammish repetition").hexdigest()
+  'a4337bc45a8fc544c03f52dc550cd6e1e87021bc896588bd79e901e2'
+
+
+`os <https://docs.python.org/3.4/library/os.html>`_ - Miscellaneous operating system interfaces
+-----------------------------------------------------------------------------------------------
+
+Environments
+
+- name
+- uname
+- umask
+- environ
+
+Process parameters
+
+- getpid: current process id
+- getppid: parent's process id
+- getpgrp: current process group id
+- getpgid(pid): process group id with process id pid
+
+- getuid: real user id of current process
+- getgid: real group id of current process
+- geteuid: effective user id of current process
+- getegid: effective group id of current process
+- getgroups: list of supplemental group ids associated with the current process
+
+- getresuid: real, effective, saved
+- getresgid:
+
+- getsid: process session id
+
+- getlogin: name of the user logged in
+
+- set\*
+
+File descriptor operations
+
+- open
+- close
+- lseek
+- read
+- write
+- sendfile
+- dup
+- dup2
+- fchmod
+- fchown
+- fstat
+- fsync
+- ftruncate
+- lockf
+- isatty
+- openpty
+- pipe
+- pipe2
+
+Files and directories
+
+- access
+- chdir
+- chflags
+- chmod
+- chown
+- chroot
+- getcwd
+- link
+- listdir
+- mkdir
+- makedirs
+- mkfifo
+- makedev
+- major
+- minor
+- readlink
+- remove
+- removedirs
+- rename
+- rmdir
+- stat
+- symlink
+- sync
+- truncate
+- unlink
+- utime
+- walk
+
+Process management
+
+- abort
+- exec\*
+- _exit
+- forkpty
+- kill
+- nice
+- popen
+- spawn\*
+- system
+- times
+- wait
+- waitpid
+- wait3
+- wait4
+
+Misc system information
+
+- sep
+- linesep
+- pathsep
+- devnull
+
+
+`io <https://docs.python.org/3.4/library/io.html>`_ - Core tools for working with streams
+-----------------------------------------------------------------------------------------
+
+Text and Binary I/O
+
+::
+
+  f = io.StringIO("some initial text data")
+
+  f = io.BytesIO(b"some initial binary data: \x00\x01")
+
+
+`time <https://docs.python.org/3.4/library/time.html>`_ - Time access and conversions
+-------------------------------------------------------------------------------------
+
+::
+
+  >>> import time
+  >>> time.time()
+  1413910801.16108
+  >>> time.ctime()
+  'Wed Oct 22 01:00:03 2014'
+
+  >>> time.sleep(.1)
+
+
+`argparse <https://docs.python.org/3.4/library/argparse.html>`_ - Parser for command-line options, arguments and sub-commands
+-----------------------------------------------------------------------------------------------------------------------------
+
+::
+
+  parser = argparse.ArgumentParser()
+  parser.add_argument('pattern')
+  parser.add_argument('files', nargs='*')
+  parser.add_argument('-n', '--line-numerber', action='store_true')
+  ...
+  namespace = parser.parse_args()
+
+`logging <https://docs.python.org/3.4/library/logging.html>`_ - logging — Logging facility for Python
+-----------------------------------------------------------------------------------------------------
+
+The standard API learned from log4j.
+
+::
+
+  import logging
+
+  logfile = 'log.out'
+
+  logging.basicConfig(filename=logfile, level=logging.DEBUG)
+
+  logging.debug("this message should go to the log file")
+
+  logger = logging.getLogger(__name__)
+  logger.info("this message too")
+
+::
+
+  $ cat log.out
+  DEBUG:root:this message should go to the log file
+  INFO:__main__:this message too
+
+
+`platform <https://docs.python.org/3.4/library/platform.html>`_ - Access to underlying platform’s identifying data
+------------------------------------------------------------------------------------------------------------------
+
+::
+
+  >>> import platform
+  >>> platform.python_version_tuple()
+  ('3', '4', '1')
+  >>> platform.platform()
+  'Darwin-13.2.0-x86_64-i386-64bit'
+  >>> platform.uname()
+  uname_result(system='Darwin', node='huanghao-mpa', release='13.2.0', version='Darwin Kernel Version 13.2.0: Thu Apr 17 23:03:13 PDT 2014; root:xnu-2422.100.13~1/RELEASE_X86_64', machine='x86_64', processor='i386')
+
+`errno <https://docs.python.org/3.4/library/errno.html>`_ - Standard errno system symbols
+-----------------------------------------------------------------------------------------
+
+::
+
+  >>> os.mkdir('/tmp')
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  FileExistsError: [Errno 17] File exists: '/tmp'
+
+  >>> errno.EEXIST
+  17
+
+  >>> try:
+  ...   os.mkdir('/tmp')
+  ... except OSError as err:
+  ...   if err.errno == errno.EEXIST:
+  ...      print('File exists')
+  ...   else:
+  ...      raise
+  ...
+  File exists
+
+
+`ipaddress <https://docs.python.org/3.4/library/ipaddress.html>`_ - IPv4/IPv6 manipulation library
+--------------------------------------------------------------------------------------------------
+
+::
+
+  >>> ipaddress.ip_address('192.168.0.1')
+  IPv4Address('192.168.0.1')
+  >>> ipaddress.ip_address('2001:db8::')
+  IPv6Address('2001:db8::')
+
+  >>> ipaddress.ip_network('192.168.0.0/28')
+  IPv4Network('192.168.0.0/28')
+
+  >>> IPv4Address('127.0.0.2') > IPv4Address('127.0.0.1')
+  True
+  >>> IPv4Address('127.0.0.2') == IPv4Address('127.0.0.1')
+  False
+  >>> IPv4Address('127.0.0.2') != IPv4Address('127.0.0.1')
+  True
+
+  >>> list(ip_network('192.0.2.0/29').hosts())  
+  [IPv4Address('192.0.2.1'), IPv4Address('192.0.2.2'),
+   IPv4Address('192.0.2.3'), IPv4Address('192.0.2.4'),
+   IPv4Address('192.0.2.5'), IPv4Address('192.0.2.6')]
+
+  >>> for addr in IPv4Network('192.0.2.0/28'):
+  ...   addr
+  ...
+  IPv4Address('192.0.2.0')
+  IPv4Address('192.0.2.1')
+  IPv4Address('192.0.2.2')
+  IPv4Address('192.0.2.3')
+  IPv4Address('192.0.2.4')
+  IPv4Address('192.0.2.5')
+  IPv4Address('192.0.2.6')
+  IPv4Address('192.0.2.7')
+  IPv4Address('192.0.2.8')
+  IPv4Address('192.0.2.9')
+  IPv4Address('192.0.2.10')
+  IPv4Address('192.0.2.11')
+  IPv4Address('192.0.2.12')
+  IPv4Address('192.0.2.13')
+  IPv4Address('192.0.2.14')
+  IPv4Address('192.0.2.15')
+
+  >>> IPv4Network('192.0.2.0/28')[0]
+  IPv4Address('192.0.2.0')
+  >>> IPv4Network('192.0.2.0/28')[15]
+  IPv4Address('192.0.2.15')
+  >>> IPv4Address('192.0.2.6') in IPv4Network('192.0.2.0/28')
+  True
+  >>> IPv4Address('192.0.3.6') in IPv4Network('192.0.2.0/28')
+  False
