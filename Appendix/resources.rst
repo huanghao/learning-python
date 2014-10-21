@@ -6,10 +6,12 @@ Official
 - `Docs <https://docs.python.org/3/>`_
 - `Tutorial <https://docs.python.org/3/tutorial/index.html>`_
 - `Library Reference <https://docs.python.org/3/library/index.html>`_
+- `What's new ? <https://docs.python.org/release/3.4.2/whatsnew/index.html>`_
 
-`The Hitchhiker’s Guide to Python! <http://docs.python-guide.org/en/latest/>`_
+Articles
 
-`What's new ? <https://docs.python.org/release/3.4.2/whatsnew/index.html>`_
+- `The Hitchhiker’s Guide to Python! <http://docs.python-guide.org/en/latest/>`_
+- `PyMOTW <http://pymotw.com/2/>`_ - Python Module of the Week
 
 PEP
 

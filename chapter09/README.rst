@@ -1,12 +1,5 @@
-Introduction to the standard library
-====================================
-
-- sys
-- os
-- os.path
-- Advanced data structures: collections, heapq
-- virtualenv, venv
-- argparse
+A tour of std libs
+==================
 
 :Text processing:
   string, re, difflib, textwrap, unicodedata, stringprep, readline, rlcompleter
@@ -15,16 +8,18 @@ Introduction to the standard library
   struct, codecs
 
 :Dat types:
-  datetime, calendar, collections, collections.abc, heapq, bisect, array, weakref, types, copy, pprint, reprlib, enum
+  **datetime**, calendar, **collections**, collections.abc, **heapq**, **bisect**,
+  **array**, **weakref**, **types**, **copy**, pprint, reprlib, enum
 
 :Numeric and Math:
   numbers, math, cmath, decimal, fractions, random, statistics
 
 :Functional programming:
-  itertools, functools, perator
+  itertools, functools, operator
 
 :File and directory access:
-  pathlib, os.path, fileinput, stat, filecmp, tempfile, glob, fnmatch, linecache, shutil, macpath
+  pathlib, **os.path**, fileinput, stat, filecmp, **tempfile**, **glob**, fnmatch,
+  linecache, **shutil**, macpath
 
 :Data peristence:
   pickle, copyreg, shelve, marshal, dbm, sqlite3
@@ -33,13 +28,14 @@ Introduction to the standard library
   zlib, gzip, bz2, lzma, zipfile, tarfile
 
 :File formats:
-  csv, configparser, netrc, xdrlib, plistlib
+  csv, configparser, **netrc**, xdrlib, plistlib
 
 :Cryptographic:
-  hashlib, hmac
+  **hashlib**, hmac
 
 :OS:
-  os, io, time, argparse, getopt, logging, getpass, curses, platform, errno, ctypes
+  **os**, **io**, **time**, **argparse**, getopt, **logging**, getpass, curses,
+  **platform**, **errno**, **ctypes**
 
 :Concurrent:
   threading, multiprocessing, concurrent.futures, subprocess, sched, queue, dummy_threading
@@ -54,7 +50,8 @@ Introduction to the standard library
   html, xml.etree, xml.dom, xml.sax
 
 :Internet protocols:
-  webbrowser, cgi, wsgiref, urllib.request, urllib.response, urllib.parse, urllib.error, urllib.robotparser, http, fptlib, poplib, imaplib, nntplib, smtplib, smtpd, telnetlib, uuid, socketserver, http.server, http.cookies, http.cookiejar, xmlrpc, ipaddress
+  webbrowser, cgi, wsgiref, urllib.request, urllib.response, urllib.parse, urllib.error, urllib.robotparser, http, fptlib, poplib, imaplib, nntplib, smtplib, smtpd, telnetlib, uuid, socketserver, http.server, http.cookies, http.cookiejar, xmlrpc, **ipaddress**
+
 :Multimedia:
   audioop, aifc, sunau, wave, chunk, colorsys, imghdr, sndhdr, ossaudiodev
 
@@ -77,13 +74,14 @@ Introduction to the standard library
   distutils, ensurepip, venv
 
 :Runtime:
-  sys, sysconfig, builtins, __main__, warnings, contextlib, abc, atexit, traceback, __future__, gc, inspect, site, fpectl
+  **sys**, sysconfig, **builtins**, __main__, warnings, **contextlib**, **abc**,
+  **atexit**, **traceback**, __future__, gc, inspect, site, fpectl
 
 :Custom python interpreters:
   code, codeop
 
 :Importing:
-  zipimport, pkgutil, modulefinder, runpy, importlib
+  zipimport, pkgutil, modulefinder, runpy, **importlib**
 
 :Language:
   parser, ast, symtable, symbol, token, keyword, tokenize, tabnanny, pyclbr, py_compile, compileall, dis, pickletools
@@ -107,4 +105,65 @@ Where you can find those standard libs ?
   /usr/lib/python2.7
   /usr/lib/python3.4
 
+`datetime <https://docs.python.org/3/library/datetime.html>`_ - Basic date and time types
+-----------------------------------------------------------------------------------------
 
+There are two kinds of date and time objects: "naive" and "aware".
+
+An aware object has sufficient knownledge of applicable algorithmic and political
+time adjustments, such as time zone and daylight saving time information, to locate
+oitself relative to other aware objects.
+
+Availabe types
+
+- datetime.date
+- datetime.time
+- datetime.dateteime
+- datetime.timedelta
+- datetime.tzinfo: An abstract base class for time zone information objects.
+- datetime.timezone: A class that implements the tzinfo abc as a fixed offset from the UTC.
+
+Objects of these types are immutable.
+
+Objects of the date type are always naive.
+
+Naive::
+
+  >>> import datetime
+  >>> now = datetime.datetime.now()                   # Date and Time
+  >>> now
+  datetime.datetime(2014, 10, 21, 7, 32, 44, 964045)
+  >>> now.date()
+  datetime.date(2014, 10, 21)
+  >>> now.time()
+  datetime.time(7, 32, 44, 964045)
+
+  >>> day = datetime.date(2012, 12, 12)               # Date
+  >>> day.year, day.month, day.day, day.isoweekday(), day.isoformat()
+  (2012, 12, 12, 3, '2012-12-12')
+  >>> tm = datetime.time(19, 30, 00)                  # Time
+  >>> tm.hour, tm.minute, tm.second, tm.isoformat()
+  (19, 30, 0, '19:30:00')
+
+  >>> past = dateteime.datetime.now() - now           # Time delta
+  >>> past, str(past), past.total_seconds()
+  (datetime.timedelta(0, 615, 431954), '0:10:15.431954', 615.431954)
+
+  >>> day.strftime('%b %d %Y %a')                     # Format
+  'Dec 12 2012 Wed'
+  >>> timestr = '[Sun Oct 19 08:10:01 2014]'          # Parse
+  >>> datetime.datetime.strptime(timestr, '[%a %b %d %H:%M:%S %Y]')
+  datetime.datetime(2014, 10, 19, 8, 10, 1)
+
+Aware::
+
+  >>> beijing = timezone(timedelta(hours=8), 'Asia/Shanghai')
+  >>> finland = timezone(timedelta(hours=2), 'Europe/Helsinki')
+
+  >>> t1 = datetime.datetime(2014, 10, 6, 15, 0, 0, tzinfo=beijing)
+  >>> str(t1), t1.tzname()
+  ('2014-10-06 15:00:00+08:00', 'Asia/Shanghai')
+
+  >>> t2 = t1.astimezone(finland)
+  >>> str(t2), t2.tzname()
+  ('2014-10-06 09:00:00+02:00', 'Europe/Helsinki')
