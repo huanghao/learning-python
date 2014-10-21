@@ -362,3 +362,7 @@ This technique is simpler and faster than an equivalent technique using dict.set
   [('blue', [2, 4]), ('red', [1]), ('yellow', [1, 3])]
 
 
+`heapq <https://docs.python.org/3.4/library/heapq.html>` - Heap queue algorithm
+
+This module provides an implementation of the min heap queue algorithm, also known as the priority queue algorithm.
+
