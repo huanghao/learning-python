@@ -1,6 +1,9 @@
 Debugging and Profiling
 =======================
 
+Timing
+------
+
 Does list comprehension run faster than map ?
 
 ::
@@ -38,6 +41,7 @@ Advanced control::
 
 
 Profiling
+---------
 
 ::
 
