@@ -1,13 +1,38 @@
 Text processing
 ===============
 
-- string types, std string lib
-- Unicode, py3
-- re
-- XML & JSON & YAML, lxml, untangle, xmltodict, json, pyyaml
-- PyQuery & BeautifulSoup
-- Templates, Jinja2, Mako
-- Logging
-- Lex & Yacc, ply
+AST
+---
+
+safe evaluate, abstruct syntax tree(AST)
+
+Regular expression
+------------------
+
+Structed text
+-------------
+
+XML & JSON & YAML, lxml, untangle, xmltodict, json, pyyaml
+
+HTML text
+---------
+
+PyQuery & BeautifulSoup
+
+Templates system
+----------------
+
+Templates, Jinja2, Mako
+
+Logging
+-------
+
+Logging
+
+Lexical and syntax parser
+-------------------------
+
 - shlex
-- safe evaluate, abstruct syntax tree(AST)
+- Lex & Yacc, ply
+
+
