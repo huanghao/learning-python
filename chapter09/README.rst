@@ -836,6 +836,9 @@ Text and Binary I/O
 
   >>> time.sleep(.1)
 
+  >>> time.clock()
+  0.194521
+
 
 `argparse <https://docs.python.org/3.4/library/argparse.html>`_ - Parser for command-line options, arguments and sub-commands
 -----------------------------------------------------------------------------------------------------------------------------
