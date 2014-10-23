@@ -1,0 +1,6 @@
+Django
+Jinja2
+PyYAML
+flake8
+lxml
+pyquery

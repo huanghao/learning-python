@@ -281,10 +281,95 @@ Now d is like the \$ in jquery::
 Also see: BeautifulSoup
 
 
-Templates system
-----------------
+Template system
+---------------
 
-Templates, Jinja2, Mako
+::
+
+  >>> from jinja2 import Template
+  >>> template = Template('Hello {{ name }}!')
+  >>> template.render(name='John Doe')
+  'Hello John Doe!'
+
+Variables::
+
+  {{ foo.bar }}
+  {{ foo['bar'] }}
+
+`Filters <http://jinja.pocoo.org/docs/dev/templates/#builtin-filters>`_::
+
+  {{ name|striptags|title }}
+  {{ list|join(', ') }}
+
+Loop::
+
+  <ul>
+  {% for item in seq %}
+      <li>{{ item }}</li>
+  {% endfor %}
+  </ul>
+
+Tests::
+
+  {% if loop.index is divisibleby 3 %}
+  {% if loop.index is divisibleby(3) %}
+
+Comments::
+
+  {# note: disabled template because we no longer use this
+    {% for user in users %}
+        ...
+    {% endfor %}
+  #}
+
+Template Inheritance::
+
+  # Base template
+
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+  <html lang="en">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      {% block head %}
+      <link rel="stylesheet" href="style.css" />
+      <title>{% block title %}{% endblock %} - My Webpage</title>
+      {% endblock %}
+  </head>
+  <body>
+      <div id="content">{% block content %}{% endblock %}</div>
+      <div id="footer">
+          {% block footer %}
+          &copy; Copyright 2008 by <a href="http://domain.invalid/">you</a>.
+          {% endblock %}
+      </div>
+  </body>
+
+  # Child template
+
+  {% extends "base.html" %}
+  {% block title %}Index{% endblock %}
+  {% block head %}
+      {{ super() }}
+      <style type="text/css">
+          .important { color: #336699; }
+      </style>
+  {% endblock %}
+  {% block content %}
+      <h1>Index</h1>
+      <p class="important">
+        Welcome on my awesome homepage.
+      </p>
+  {% endblock %}
+
+Include::
+
+  {% include 'header.html' %}
+    Body
+  {% include 'footer.html' %}
+
+See `Template Designer Documentation <http://jinja.pocoo.org/docs/dev/templates/>`_
+
+Also see: Mako
 
 Logging
 -------
