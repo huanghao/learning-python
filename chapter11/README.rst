@@ -66,7 +66,183 @@ See also `Regular Expression HOWTO <https://docs.python.org/3.4/howto/regex.html
 Structed text
 -------------
 
-XML & JSON & YAML, lxml, untangle, xmltodict, json, pyyaml
+JSON & YAML & XML
+
+`JSON <https://docs.python.org/3.4/library/json.html>`_: JavaScript Object Notation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Encoding basic Python object hierarchies::
+
+  >>> import json
+  >>> json.dumps(['foo', {'bar': ('baz', None, 1.0, 2)}])
+  '["foo", {"bar": ["baz", null, 1.0, 2]}]'
+  >>> print(json.dumps("\"foo\bar"))
+  "\"foo\bar"
+  >>> print(json.dumps('\u1234'))
+  "\u1234"
+  >>> print(json.dumps('\\'))
+  "\\"
+  >>> print(json.dumps({"c": 0, "b": 0, "a": 0}, sort_keys=True))
+  {"a": 0, "b": 0, "c": 0}
+  >>> from io import StringIO
+  >>> io = StringIO()
+  >>> json.dump(['streaming API'], io)
+  >>> io.getvalue()
+  '["streaming API"]'
+
+Compact encoding::
+
+  >>> json.dumps([1,2,3,{'4': 5, '6': 7}], separators=(',', ':'))
+  '[1,2,3,{"4":5,"6":7}]'
+  Pretty printing:
+
+  >>>
+  >>> import json
+  >>> print(json.dumps({'4': 5, '6': 7}, sort_keys=True, indent=4))
+  {
+      "4": 5,
+      "6": 7
+  }
+
+Decoding JSON::
+
+  >>> json.loads('["foo", {"bar":["baz", null, 1.0, 2]}]')
+  ['foo', {'bar': ['baz', None, 1.0, 2]}]
+  >>> json.loads('"\\"foo\\bar"')
+  '"foo\x08ar'
+  >>> from io import StringIO
+  >>> io = StringIO('["streaming API"]')
+  >>> json.load(io)
+  ['streaming API']
+
+Specializing JSON object decoding::
+
+  >>> def as_complex(dct):
+  ...     if '__complex__' in dct:
+  ...         return complex(dct['real'], dct['imag'])
+  ...     return dct
+  ...
+  >>> json.loads('{"__complex__": true, "real": 1, "imag": 2}',
+  ...     object_hook=as_complex)
+  (1+2j)
+  >>> import decimal
+  >>> json.loads('1.1', parse_float=decimal.Decimal)
+  Decimal('1.1')
+
+Extending JSONEncoder::
+
+  >>> class ComplexEncoder(json.JSONEncoder):
+  ...     def default(self, obj):
+  ...         if isinstance(obj, complex):
+  ...             return [obj.real, obj.imag]
+  ...         # Let the base class default method raise the TypeError
+  ...         return json.JSONEncoder.default(self, obj)
+  ...
+  >>> json.dumps(2 + 1j, cls=ComplexEncoder)
+  '[2.0, 1.0]'
+  >>> ComplexEncoder().encode(2 + 1j)
+  '[2.0, 1.0]'
+  >>> list(ComplexEncoder().iterencode(2 + 1j))
+  ['[2.0', ', 1.0', ']']
+
+Using json.tool from the shell to validate and pretty-print::
+
+  $ echo '{"json":"obj"}' | python -mjson.tool
+  {
+      "json": "obj"
+  }
+  $ echo '{1.2:3.4}' | python -mjson.tool
+  Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+
+See `json.org <http://json.org/>`_
+
+YAML: YAML Ain't Markup Language
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+`PyYAML <https://pypi.python.org/pypi/PyYAML/3.11>`_
+
+::
+  >>> import yaml
+
+  >>> print yaml.load("""
+  ... name: Vorlin Laruknuzum
+  ... sex: Male
+  ... class: Priest
+  ... title: Acolyte
+  ... hp: [32, 71]
+  ... sp: [1, 13]
+  ... gold: 423
+  ... inventory:
+  ... - a Holy Book of Prayers (Words of Wisdom)
+  ... - an Azure Potion of Cure Light Wounds
+  ... - a Silver Wand of Wonder
+  ... """)
+
+  {'name': 'Vorlin Laruknuzum', 'gold': 423, 'title': 'Acolyte', 'hp': [32, 71],
+  'sp': [1, 13], 'sex': 'Male', 'inventory': ['a Holy Book of Prayers (Words of Wisdom)',
+  'an Azure Potion of Cure Light Wounds', 'a Siver Wand of Wonder'], 'class': 'Priest'}
+
+  >>> print yaml.dump({'name': "The Cloak 'Colluin'", 'depth': 5, 'rarity': 45,
+  ... 'weight': 10, 'cost': 50000, 'flags': ['INT', 'WIS', 'SPEED', 'STEALTH']})
+
+  name: The Cloak 'Colluin'
+  rarity: 45
+  flags: [INT, WIS, SPEED, STEALTH]
+  weight: 10
+  cost: 50000
+  depth: 5
+
+XML
+~~~
+
+`xml.etree.ElementTree <https://docs.python.org/3.4/library/xml.etree.elementtree.html>`_: xmltest.py
+
+XPath syntax:
+
+================= ==========================================================================================================================================================================================================================================
+Syntax            Meaning
+================= ==========================================================================================================================================================================================================================================
+tag               Selects all child elements with the given tag. For example: spam, spam/egg
+\*                Selects all child elements. For example, \*/egg
+\.                Selects the current node.
+//                Selects all subelements, on all levels beneath the current element. For example, .//egg
+\.\.              Selects the parent element.
+[@attrib]         Selects all elements that have the given attribute.
+[@attrib='value'] Selects all elements for which the given attribute has the given value. The value cannot contain quotes.
+[tag]             Selects all elements that have a child named tag. Only immediate children are supported.
+[position]        Selects all elements that are located at the given position. The position can be either an integer (1 is the first position), the expression last() (for the last position), or a position relative to the last position (e.g. last()-1).
+================= ==========================================================================================================================================================================================================================================
+
+::
+
+  # Top-level elements
+  root.findall(".")
+
+  # All 'neighbor' grand-children of 'country' children of the top-level
+  # elements
+  root.findall("./country/neighbor")
+
+  # Nodes with name='Singapore' that have a 'year' child
+  root.findall(".//year/..[@name='Singapore']")
+
+  # 'year' nodes that are children of nodes with name='Singapore'
+  root.findall(".//*[@name='Singapore']/year")
+
+  # All 'neighbor' nodes that are the second child of their parent
+  root.findall(".//neighbor[2]")
+
+Building xml documents::
+
+  >>> data = ET.Element('data')
+  >>> jm = ET.SubElement(data, 'artist')
+  >>> jm.attrib['name'] = 'John Mayer'
+  >>> j5 = ET.SubElement(data, 'artist')
+  >>> j5.attrib['name'] = 'John 5'
+  >>> rock = ET.SubElement(j5, 'genre')
+  >>> rock.text = 'Instrumental Rock'
+  >>> ET.dump(data)
+  <data><artist name="John Mayer" /><artist name="John 5"><genre>Instrumental Rock</genre></artist></data>
+
 
 HTML text
 ---------
