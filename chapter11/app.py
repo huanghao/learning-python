@@ -3,6 +3,7 @@ import sys
 
 from router import Router
 from httpserver import serve_forever
+from web import render
 
 
 def index():
@@ -18,6 +19,11 @@ def about():
     return """It's just a very simple demo for web server"""
 
 
+def greet():
+    import time
+    return render('greet.html', {'now': time.time()})
+
+
 if __name__ == '__main__':
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
     address = ('localhost', port)
@@ -25,6 +31,7 @@ if __name__ == '__main__':
         ('/', index),
         ('/hello/(?P<username>\w+)', hello),
         ('/about', about),
+        ('/greeting', greet),
         ))
 
     serve_forever(address, router)
