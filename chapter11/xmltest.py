@@ -25,6 +25,7 @@ xml = '''<?xml version="1.0"?>
 </data>
 '''
 
+
 def basic_usage(root):
     print('root.tag: %s' % root.tag)
     for child in root:
