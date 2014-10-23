@@ -243,11 +243,43 @@ Building xml documents::
   >>> ET.dump(data)
   <data><artist name="John Mayer" /><artist name="John 5"><genre>Instrumental Rock</genre></artist></data>
 
+Also see: lxml
+
 
 HTML text
 ---------
 
-PyQuery & BeautifulSoup
+See `html <https://docs.python.org/3.4/library/html.html>`_ - HyperText Markup Language support
+
+`PyQuery <https://pythonhosted.org/pyquery/>`_ - a jquery-like lib for python
+
+::
+
+  >>> from pyquery import PyQuery as pq
+  >>> from lxml import etree
+  >>> d = pq("<html></html>")
+  >>> d = pq(etree.fromstring("<html></html>"))
+  >>> d = pq(url='http://google.com/')
+  >>> d = pq(filename=path_to_html_file)
+
+Now d is like the \$ in jquery::
+
+  >>> d("#hello")
+  [<p#hello.hello>]
+  >>> p = d("#hello")
+  >>> print(p.html())
+  Hello world !
+  >>> p.html("you know <a href='http://python.org/'>Python</a> rocks")
+  [<p#hello.hello>]
+  >>> print(p.html())
+  you know <a href="http://python.org/">Python</a> rocks
+  >>> print(p.text())
+  you know Python rocks
+  >>> d('p:first')
+  [<p#hello.hello>]
+
+Also see: BeautifulSoup
+
 
 Templates system
 ----------------
