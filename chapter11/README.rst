@@ -32,13 +32,34 @@ Baisc usage::
 
 `Syntax <https://docs.python.org/3.4/library/re.html#regular-expression-syntax>`_
 
-Quiz: explain these meta chars: ``. ^ $ * + ? { } [ ] \ | ( )``
+Quiz: explain these meta characters: ``. ^ $ * + ? { } [ ] \ | ( )``
 
 `Flags <https://docs.python.org/3.4/library/re.html#re.A>`_
 
-search vs. match
+Raw string
 
+Regex methods
 
+- search
+- match: ^ + search
+- fullmatch: ^ + search + $
+- split: general form of str.split
+- findall: returns groups
+- finditer: returns iteration of match objects
+- sub: general form of str.replace
+- escape: match meta chars
+
+Match object
+
+- expand
+- group: 0(the whole)
+- groups: groups from 1
+- groupdict
+- start
+- end
+- span
+
+Example: router.py
 
 See also `Regular Expression HOWTO <https://docs.python.org/3.4/howto/regex.html#regex-howto>`_
 
