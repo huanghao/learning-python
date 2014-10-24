@@ -12,18 +12,6 @@ Or run this command to get local document.
 Content
 -------
 
-11. Engineering
-  - Development: ipython, Flake8(pep8,pyflakes,mcCabe), pylint, virtualenv(wrapper), autoenv, landscape.io
-  - Document: docstring, pydoc, Sphinx, readthedocs
-  - Auto testing
-  - Source code maintaning: github
-  - Code review: Gerrit, github(Pull Request)
-  - Packaging: setuptools
-  - Deployment: Ansible, SaltStack, Puppet, fabric
-  - Release: PyPi, pip
-  - Monitoring: Psutil, Nagios, Ganglia
-  - CI: Travis-CI, Jenkins/buildbot
-  - Agile & DevOp
 13. Multi-processing & Multi-threading
   - threading
   - multiprocessing
