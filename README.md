@@ -12,13 +12,6 @@ Or run this command to get local document.
 Content
 -------
 
-13. Multi-processing & Multi-threading
-  - threading
-  - multiprocessing
-  - subprocess
-  - python-daemon
-  - supervisor
-  - envoy
 14. Networking
   - netaddr
   - socket
