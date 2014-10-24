@@ -374,15 +374,11 @@ web.py
 
 Also see: Mako
 
-Logging
--------
-
-Logging
-
 Lexical and syntax parser
 -------------------------
 
-- shlex
-- Lex & Yacc, ply
+`Python Lex-Yacc <http://www.dabeaz.com/ply/>`_
+
+
 
 

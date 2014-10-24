@@ -61,3 +61,7 @@ venv/
 chapter09/log.out
 chapter10/grep.cover
 
+# ply auto generated
+parser.out
+parsetab.py
+
