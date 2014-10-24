@@ -1,10 +1,34 @@
 Text processing
 ===============
 
-String lib
-----------
+string — Common string operations
+---------------------------------
 
-Note: Only available in py2
+`3.4 <https://docs.python.org/3.4/library/string.html>`_
+
+`2.7 <https://docs.python.org/2/library/string.html>`_
+
+Constants::
+
+  >>> string.ascii_letters
+  'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  >>> string.ascii_lowercase
+  'abcdefghijklmnopqrstuvwxyz'
+  >>> string.ascii_uppercase
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  >>> string.digits
+  '0123456789'
+  >>> string.hexdigits
+  '0123456789abcdefABCDEF'
+  >>> string.octdigits
+  '01234567'
+  >>> string.punctuation
+  '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
+  >>> string.printable
+  '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~ \t\n\r\x0b\x0c'
+  >>> string.whitespace
+  ' \t\n\r\x0b\x0c'
+
 
 Safely eval
 -----------
@@ -284,6 +308,14 @@ Also see: BeautifulSoup
 
 Template system
 ---------------
+
+`Format <https://docs.python.org/3.4/library/string.html#formatspec>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+TODO
+
+Jinja2
+~~~~~~
 
 ::
 
