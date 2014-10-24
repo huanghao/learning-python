@@ -12,14 +12,6 @@ Or run this command to get local document.
 Content
 -------
 
-9. Auto-testing
-  - doctest
-  - unittest
-  - pytest & Nose
-  - Mocking
-  - Tox
-  - Selenium, WebDriver, PhantomJS
-  - Coverage, python-coverage, coversall.io
 11. Engineering
   - Development: ipython, Flake8(pep8,pyflakes,mcCabe), pylint, virtualenv(wrapper), autoenv, landscape.io
   - Document: docstring, pydoc, Sphinx, readthedocs
