@@ -164,6 +164,29 @@ Example::
 Mocking
 ~~~~~~~
 
+record-replay pattern
+
+Mock
+
+- attribures
+- methods
+- side_effects
+
+MagicMock
+
+NonCallableMock, NonCallableMagicMock
+
+patches
+
+- patch
+- with
+- patch.object
+- patch.dict
+- path.multi
+- start and stop
+
+sentinel
+
 pytest
 ------
 
