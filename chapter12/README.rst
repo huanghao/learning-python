@@ -64,11 +64,33 @@ Auto-Testing
 ::
 
   $ python example.py -v
-
-  # or
+  $
 
   $ python -m doctest example.py
-
+  Trying:
+      factorial(5)
+  Expecting:
+      120
+  ok
+  Trying:
+      [factorial(n) for n in range(6)]
+  Expecting:
+      [1, 1, 2, 6, 24, 120]
+  ok
+  ...
+  Trying:
+      factorial(1e100)
+  Expecting:
+      Traceback (most recent call last):
+          ...
+      OverflowError: n too large
+  ok
+  2 items passed all tests:
+     1 tests in __main__
+     8 tests in __main__.factorial
+  9 tests in 2 items.
+  9 passed and 0 failed.
+  Test passed.
 
 `unittest <https://docs.python.org/3.4/library/unittest.html>`_
 ---------------------------------------------------------------
