@@ -12,15 +12,6 @@ Or run this command to get local document.
 Content
 -------
 
-14. Networking
-  - netaddr
-  - socket
-  - http: requests & requests-cache & urllib2 & pycurl
-  - Twisted
-  - gevent
-  - python-eventlet
-  - tulip(asyncio)
-  - Scrapy
 15. Databases
   - sqlite/MySQLdb/PostgreSQL, SQLAlchemy, Django ORM
   - Mongo/Redis/CouchDB
