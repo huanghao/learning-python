@@ -181,19 +181,152 @@ worker.py: a simpler solution of producers and customers question
 multiprocessing
 ---------------
 
+`Global Interpreter Lock <https://docs.python.org/3.4/glossary.html#term-global-interpreter-lock>`_
+
+Process(target, args)
+
+- start()
+- run()
+- join()
+- name
+- is_alive()
+- daemon
+- pid
+- exitcode
+- terminate()
+
+`Programming guidelines <https://docs.python.org/3.4/library/multiprocessing.html#programming-guidelines>`_
+
+
+Contexts and start methods
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- spawn
+- fork
+- forkserver
+
+Exchanging objects
+~~~~~~~~~~~~~~~~~~
+
+Queue
+
+Pipe
+
+SimpleQueue
+
+Connection
+
+Listeners and Clients
+
+Authentication keys
+
+Synchronization
+~~~~~~~~~~~~~~~
+
+Lock
+
+Barrier
+
+BoundedSemaphore
+
+Condition
+
+Event
+
+Semaphore
+
+Sharing states
+~~~~~~~~~~~~~~
+
+Shared memory
+
+Server process
+
+Shared ctypes Objects
+
+Managers
+
+Proxy
+
+Cleanup
+
+Pool of workers
+~~~~~~~~~~~~~~~
+
+
 
 subprocess
 ----------
 
+This module intends to replace several older modules and functions:
+
+  os.system
+  os.spawn*
+
+Popen(args, bufsize=-1, executable=None, stdin=None, stdout=None, stderr=None, preexec_fn=None, close_fds=True, shell=False, cwd=None, env=None, universal_newlines=False, startupinfo=None, creationflags=0, restore_signals=True, start_new_session=False, pass_fds=())
+
+- poll()
+- wait()
+- communicate()
+- send_signal()
+- terminate()
+- kill()
+- args
+- stdin
+- stdout
+- stderr
+- pid
+- returncode
+
+- call(args, \*, stdin=None, stdout=None, stderr=None, shell=False, timeout=None)
+- check_call
+- check_output
+
+`Replace older functions with subprocess <https://docs.python.org/3.4/library/subprocess.html#replacing-older-functions-with-the-subprocess-module>`_
+
+shlex
+
 concurrent
 ----------
 
-python-daemon
--------------
+ThreadPoolExecutor
+
+ProcessPoolExecutor
+
+Future
+
+future/promise
+
+sched
+-----
+
+`python-daemon <https://pypi.python.org/pypi/python-daemon/>`_
+--------------------------------------------------------------
+
+Correct daemon behaviour
+
+According to Stevens in [stevens]_ §2.6, a program should perform the following steps to become a Unix daemon process.
+
+- Close all open file descriptors.
+- Change current working directory.
+- Reset the file access creation mask.
+- Run in the background.
+- Disassociate from process group.
+- Ignore terminal I/O signals.
+- Disassociate from control terminal.
+- Don't reacquire a control terminal.
+- Correctly handle the following circumstances:
+- Started by System V init process.
+- Daemon termination by SIGTERM signal.
+- Children generate SIGCLD signal.
+
+
+See: `PEP 3143 <http://legacy.python.org/dev/peps/pep-3143/>`_ - Standard daemon process library
 
 supervisor
 ----------
 
-envoy
------
+http://supervisord.org/
 
+
+.. [stevens] Unix Network Programming, W. Richard Stevens, 1994 Prentice Hall.
