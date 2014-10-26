@@ -13,6 +13,7 @@ Contents:
   :numbered:
 
   chapter01/README.rst
+  chapter02/README.rst
   chapter03/README.rst
   chapter04/README.rst
   chapter05/README.rst
