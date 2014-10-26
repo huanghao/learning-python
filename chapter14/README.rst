@@ -88,6 +88,8 @@ Reentrant Lock: reentrant_lock.py
 Condition
 ~~~~~~~~~
 
+TODO
+
 Semaphore
 ~~~~~~~~~
 
@@ -135,12 +137,46 @@ wait4parent.py
 Timer
 ~~~~~
 
+prompt.py
+
+::
+
+  def hello():
+      print("hello, world")
+
+  t = Timer(30.0, hello)
+  t.start() # after 30 seconds, "hello, world" will be printed
+
+
 Barrier
 ~~~~~~~
+
+::
+
+  b = Barrier(2, timeout=5)
+
+  def server():
+      start_server()
+      b.wait()
+      while True:
+          connection = accept_connection()
+          process_server_connection(connection)
+
+  def client():
+      b.wait()
+      while True:
+          connection = make_connection()
+          process_client_connection(connection)
+
 
 Queue
 ~~~~~
 
+- Queue: FIFO
+- LifoQueue: LIFO
+- PriorityQueue: The lowest valued entries are retrieved first
+
+worker.py: a simpler solution of producers and customers question
 
 multiprocessing
 ---------------

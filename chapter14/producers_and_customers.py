@@ -23,9 +23,8 @@ def producer(pid):
         P(vacancy)
         P(mutex)
 
-        product = Product()
         time.sleep(random.random() / 3)
-        buf.append(product)
+        buf.append(Product)
         print('producer{} + : {:02d} {}'.format(pid, len(buf), '.'*len(buf)))
 
         V(mutex)
