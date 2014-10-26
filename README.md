@@ -12,10 +12,6 @@ Or run this command to get local document.
 Content
 -------
 
-17. Web
-  - WSGI/paste
-  - Flask/Django/Tornado
-  - bottle/webpy/cherrypy
 19. Py3
   - six
   - 2to3
