@@ -12,10 +12,6 @@ Or run this command to get local document.
 Content
 -------
 
-15. Databases
-  - sqlite/MySQLdb/PostgreSQL, SQLAlchemy, Django ORM
-  - Mongo/Redis/CouchDB
-  - Memcache
 16. Message Queue
   - RabbitMQ, pika, amqplib
   - ZMQ
