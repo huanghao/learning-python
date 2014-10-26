@@ -12,9 +12,6 @@ Or run this command to get local document.
 Content
 -------
 
-19. Py3
-  - six
-  - 2to3
 2. Demos
   - C extensions, ctypes, cython, swig, sip, pyrex
   - i18n & l11n, babel, pytz, dateutil, lunar, datetime
