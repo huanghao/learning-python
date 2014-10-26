@@ -12,10 +12,6 @@ Or run this command to get local document.
 Content
 -------
 
-16. Message Queue
-  - RabbitMQ, pika, amqplib
-  - ZMQ
-  - Celery
 17. Web
   - WSGI/paste
   - Flask/Django/Tornado
