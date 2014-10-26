@@ -122,6 +122,16 @@ producers_and_customers.py
 Event
 ~~~~~
 
+wait4parent.py
+
+::
+
+  $ python wait4parent.py
+  10:17:48 Child: wait for the event
+  10:17:48 Parent: wait a moment
+  10:17:51 Parent: now child can go on
+  10:17:51 Child: start my job
+
 Timer
 ~~~~~
 
