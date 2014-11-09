@@ -4,3 +4,5 @@ PyYAML
 flake8
 lxml
 pyquery
+requests
+Celery
