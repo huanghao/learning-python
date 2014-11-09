@@ -4,6 +4,8 @@ Web
 WSGI
 ----
 
+.. image:: wsgi-middleware.png
+
 Also see: paste
 
 Django
