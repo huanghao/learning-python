@@ -65,3 +65,4 @@ chapter10/grep.cover
 parser.out
 parsetab.py
 
+cache.sqlite
