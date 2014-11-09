@@ -310,7 +310,7 @@ Celery
 Twisted
 -------
 
-gevent
-python-eventlet
-tulip(asyncio)
-Scrapy
+- gevent
+- python-eventlet
+- tulip(asyncio)
+- Scrapy
