@@ -24,6 +24,7 @@ What is Python good for ?
 What can I do with Python ?
 
 Which Python should I choose ?
+
 - Version: 2.7 or 3.4
 - `Alternate Implementations`_: cpython, pypy, Jython, IronPython, stackless
 
