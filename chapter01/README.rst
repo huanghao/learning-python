@@ -52,6 +52,13 @@ Design and History
 - The Zen of Python(`PEP 20 <http://legacy.python.org/dev/peps/pep-0020/>`_)
 - `Guido <http://en.wikipedia.org/wiki/Guido_van_Rossum>`_
 
+Resources
+---------
+
+- docs
+- pypi
+- pyCon/weekly
+
 Run programs
 ------------
 
