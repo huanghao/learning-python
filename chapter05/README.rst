@@ -263,7 +263,7 @@ yield vs. return::
 
   >>> def gensquares(N):
   ...   for i in range(N):
-  ...   yield i ** 2
+  ...     yield i ** 2
   ...
   >>> for i in gensquares(5): # Resume the function
   ...   print(i, end=' : ')
