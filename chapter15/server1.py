@@ -3,6 +3,7 @@ import socket
 
 addr = ('localhost', 8000)
 sock = socket.socket()
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 sock.bind(addr)
 sock.listen(5)
 print('listening on', addr)

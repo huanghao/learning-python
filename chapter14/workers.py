@@ -28,6 +28,7 @@ seed(time())
 
 q = Queue(13)
 
+
 for i in range(5):
     Thread(target=producer, args=(i+1,)).start()
 for i in range(5):

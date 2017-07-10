@@ -7,7 +7,7 @@ A tour of std libs
 :Binary data services:
   struct, codecs
 
-:Dat types:
+:Data types:
   **datetime**, calendar, **collections**, collections.abc, **heapq**, **bisect**,
   **array**, **weakref**, **types**, **copy**, pprint, reprlib, enum
 
