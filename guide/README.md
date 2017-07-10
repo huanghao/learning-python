@@ -13,6 +13,7 @@
 - 我只能给出知识点或者资料，需要你去看和理解以后，来给我讲，通过给我讲的过程，来查漏补缺。另外就是找能在工作中用到py的点，用得多自然就熟练
 
 大概分三个阶段：
+
 1. 入门（2-3周）：掌握基本的语法和简单的标准库，能写几个类和几十行的代码完全简单的任务
 2. 熟练（2-3月）：掌握大部分的高级语法结构，在使用时不会因为语法导致工作无法继续。掌握几十个标准库和常用的第三方库（根据工作的需要）。在需要某个功能的时候，能够想到大概什么库里会有类似的功能。
 3. 在掌握了基本功之后，就可以自行安排针对性的深入了。定期了解新版本的功能，关注pyCon，不断补充第三方库的使用，阅读更多的书籍，扩展工作的应用范围（例如大数据，机器学习等）
@@ -40,9 +41,11 @@ Python基础教程（第二版）1-6章
 4. hashlib/json/pickle
 
 https://ipython.org/
+
 ipython和notebook只是个工具。安装好了以后，就多用ipython的交互console，比原生的idel方便很多。
 
 https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+
 快速了解md的语法，会在notebook中穿插使用python code block和markdown block。以后有要总结和记录的可以写成notebook。
 
 https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str
@@ -100,7 +103,10 @@ shutil, argparse, glob, tempfile, signal
 
 https://www.python.org/dev/peps/pep-0008/
 https://www.python.org/dev/peps/pep-0020/
+
 两篇关于code style的文章。理解python的规范，以后尽量遵守。
+
+第一阶段结束后，给我来讲解一下学到的知识体系。
 
 # 第二阶段
 
