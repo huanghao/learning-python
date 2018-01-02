@@ -147,6 +147,7 @@ pydoc/unittest/pytest/selenium
 
 ## git
 
+https://git-scm.com/book/zh/v2 中文版
 https://git-scm.com/book/en/v2
 http://learngitbranching.js.org/
 
