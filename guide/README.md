@@ -155,10 +155,17 @@ http://learngitbranching.js.org/
 
 mysql：1天
 
-sqlite3
+1）SQL语句：select/update/insert/delete/create table/drop table/grant, index, transaction
+2）数据库设计：ER实体关系
+3）使用python连接数据库，执行SQL
+4）ORM的概念和简单的使用
+5）找一个业务场景，定义表结构，索引，和每个场景下的操作
 
 redis
 
+1）redis常用命令
+2）使用python连接redis，执行语句
+3）使用redis作为数据库的缓存使用
 
 ## stdlib: 全部过一圈，两周
 
